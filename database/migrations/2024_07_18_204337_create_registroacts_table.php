@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('registroacts', function (Blueprint $table) {
             $table->id();
+            $table->string('url');
+            $table->date('fecha');
+            $table->string('hora');
+            $table->foreignId('empresa_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }
