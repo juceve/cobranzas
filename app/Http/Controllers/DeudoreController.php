@@ -6,20 +6,25 @@ use App\Models\Deudore;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\DeudoreRequest;
+use App\Models\Tipodoc;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 class DeudoreController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('can:deudores.index')->only('index');
+        // $this->middleware('can:deudores.create')->only('create', 'store');
+        $this->middleware('can:deudores.edit')->only('edit', 'update');
+        $this->middleware('can:deudores.destroy')->only('destroy');
+    }
+
     public function index(Request $request): View
     {
-        $deudores = Deudore::paginate();
+        $deudores = Deudore::all();
 
-        return view('deudore.index', compact('deudores'))
-            ->with('i', ($request->input('page', 1) - 1) * $deudores->perPage());
+        return view('deudore.index', compact('deudores'));
     }
 
     /**
@@ -59,8 +64,8 @@ class DeudoreController extends Controller
     public function edit($id): View
     {
         $deudore = Deudore::find($id);
-
-        return view('deudore.edit', compact('deudore'));
+        $tipodocs = Tipodoc::all()->pluck('nombre', 'id');
+        return view('deudore.edit', compact('deudore', 'tipodocs'));
     }
 
     /**
@@ -68,7 +73,26 @@ class DeudoreController extends Controller
      */
     public function update(DeudoreRequest $request, Deudore $deudore): RedirectResponse
     {
-        $deudore->update($request->validated());
+
+        $deudore->docid = $request->docid;
+        $deudore->tipodoc_id = $request->tipodoc_id;
+        $deudore->fechanacimiento = $request->fechanacimiento;
+        $deudore->telffijo = $request->telffijo;
+
+        $deudore->telfref1 = $request->telfref1;
+        $deudore->telfref2 = $request->telfref2;
+        $deudore->telfref3 = $request->telfref3;
+        $deudore->nacionalidad = $request->nacionalidad;
+        $deudore->pais = $request->pais;
+
+        $deudore->domcoorx = $request->domcoorx;
+        $deudore->domcoory = $request->domcoory;
+        $deudore->domdireccion = $request->domdireccion;
+        $deudore->trabcoorx = $request->trabcoorx;
+        $deudore->trabcoory = $request->trabcoory;
+        $deudore->trabdireccion = $request->trabdireccion;
+        $deudore->save();
+
 
         return Redirect::route('deudores.index')
             ->with('success', 'Deudore updated successfully');

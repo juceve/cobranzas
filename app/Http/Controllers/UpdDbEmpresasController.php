@@ -8,6 +8,7 @@ use App\Models\Deudore;
 use App\Models\Empresa;
 use App\Models\Registroact;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,11 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class UpdDbEmpresasController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:empresas.upddb')->only('index', 'upload');
+    }
+
     public function index($empresa_id)
     {
         $registroact = Registroact::where('empresa_id', $empresa_id)->orderBy('id', 'DESC')->first();
@@ -90,12 +96,16 @@ class UpdDbEmpresasController extends Controller
                         if ($item[16]) {
                             if ($deudorP = Deudore::where('codigocliente', $item[16])->first()) {
                                 // SI EXISTE EL DEUDOR VERIFICA LA DEUDA
-                                if (!Deuda::where('numdoc', $item[1])->first()) {
+                                if (!$deuda = Deuda::where('numdoc', $item[1])->first()) {
                                     // SI NO ESTA REGISTRADA LA DEUDA REGISTRA UNA NUEVA
-                                    $fecarray = explode(" ", $item[0]);
+                                    $fecha = new DateTime($item[0]);
+                                    $fecha = $fecha->format('Y-m-d');
+
+                                    $ultfecha = new DateTime($item[14]);
+                                    $ultfecha = $ultfecha->format('Y-m-d');
                                     // $fecha = strtotime($fecarray[0]);
                                     $deuda = Deuda::create([
-                                        "fecha" => $fecarray[0],
+                                        "fecha" => $fecha,
                                         "numdoc" => $item[1],
                                         "importe" => $item[2],
                                         "saldo" => $item[3],
@@ -109,7 +119,7 @@ class UpdDbEmpresasController extends Controller
                                         "entnombresupervisor" => $item[11],
                                         "entnombrevendedor" => $item[12],
                                         "plazo" => $item[13],
-                                        "fechaultimopago" => $item[14],
+                                        "fechaultimopago" => $ultfecha,
                                         "ciunombre" => $item[15],
                                         "deudore_id" => $deudorP->id,
                                         "limitecredito" => $item[17],
@@ -122,7 +132,21 @@ class UpdDbEmpresasController extends Controller
                                     ]);
                                 } else {
                                     // SI ESTA REGISTRADA LA DEUDA REALIZA OPERACIONES DE ACTUALIZACION
+                                    if ($deuda->saldo == $item[3]) {
+                                        $deuda->ctrlupdate = 0;
+                                        $deuda->save();
+                                    } else {
+                                        $ultfecha = new DateTime($item[14]);
+                                        $ultfecha = $ultfecha->format('Y-m-d');
 
+                                        $deuda->ctrlupdate = 1;
+                                        $deuda->saldo = $item[3];
+                                        $deuda->rango = $item[7];
+                                        $deuda->fechaultimopago = $ultfecha;
+                                        $deuda->plazo = $item[13];
+                                        $deuda->vence = $item[4];
+                                        $deuda->save();
+                                    }
                                 }
                             } else {
                                 // SI NO ESTA REGISTRADO EL DEUDOR CREA NUEVO DEUDOR
@@ -133,12 +157,15 @@ class UpdDbEmpresasController extends Controller
                                     "ciudad" => $item[15],
                                     "empresa_id" => $empresa_id,
                                 ]);
-                                $fecarray = explode(" ", $item[0]);
+                                $fecha = new DateTime($item[0]);
+                                $fecha = $fecha->format('Y-m-d');
 
+                                $ultfecha = new DateTime($item[14]);
+                                $ultfecha = $ultfecha->format('Y-m-d');
 
                                 // REGISTRA LA DEUDA
                                 $deuda = Deuda::create([
-                                    "fecha" => $fecarray[0],
+                                    "fecha" => $fecha,
                                     "numdoc" => $item[1],
                                     "importe" => $item[2],
                                     "saldo" => $item[3],
@@ -152,7 +179,7 @@ class UpdDbEmpresasController extends Controller
                                     "entnombresupervisor" => $item[11],
                                     "entnombrevendedor" => $item[12],
                                     "plazo" => $item[13],
-                                    "fechaultimopago" => $item[14],
+                                    "fechaultimopago" => $ultfecha,
                                     "ciunombre" => $item[15],
                                     "deudore_id" => $deudor->id,
                                     "limitecredito" => $item[17],
@@ -180,5 +207,19 @@ class UpdDbEmpresasController extends Controller
             DB::rollBack();
             return redirect()->route('empresas.updatedb', $empresa_id)->with('error', $th->getMessage());
         }
+    }
+
+    protected function formatFecha($stringFecha)
+    {
+        $arrFecha = explode("/", $stringFecha);
+        $dia = str_pad($arrFecha[0], 2, "0", STR_PAD_LEFT);
+        $mes = str_pad($arrFecha[1], 2, "0", STR_PAD_LEFT);
+        $anio = substr($arrFecha[2], 0, 4);
+
+        // $fecha = strtotime($stringFecha);
+        $fecha = new DateTime($stringFecha);
+        $fecha = $fecha->format('Y-m-d');
+
+        return  $fecha;
     }
 }

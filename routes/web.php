@@ -6,6 +6,8 @@ use App\Http\Controllers\ExcelUploadController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UpdDbEmpresasController;
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\ListadoDeudores;
+use App\Http\Livewire\ManejoDeudas;
 use App\Http\Livewire\UpddbEmpresas;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Auth;
@@ -44,8 +46,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('empresas/update-db/{empresa_id}', [UpdDbEmpresasController::class, 'index'])->name('empresas.updatedb');
     Route::post('/upload-excel/{empresa_id}', [UpdDbEmpresasController::class, 'upload'])->name('upload.excelempresas');
 
+    Route::get('/listado-deudores', ListadoDeudores::class)->name('listadodeudores');
+    Route::get('/manejo-deudas', ManejoDeudas::class)->name('manejodeudas');
+
     Route::resource('empresas', EmpresaController::class)->names('empresas');
-    Route::resource('deudores', DeudoreController::class)->names('deudores');
+    Route::resource('deudores', DeudoreController::class)->except(['create', 'store'])->names('deudores');
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });

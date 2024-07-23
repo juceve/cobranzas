@@ -1,29 +1,44 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    {{ __('Update') }} Deudore
+@section('title', 'Editar Deudor')
+
+@section('content_header')
+<h4>Editar Deudor</h4>
 @endsection
 
 @section('content')
-    <section class="content container-fluid">
-        <div class="">
-            <div class="col-md-12">
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
 
-                <div class="card card-default">
-                    <div class="card-header">
-                        <span class="card-title">{{ __('Update') }} Deudore</span>
+            <div class="card">
+                <div class="card-header bg-info">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+
+                        <span id="card_title">
+                            Formulario de Registro
+                        </span>
+
+                        <div class="float-right">
+                            <a href="{{ route('deudores.index') }}" class="btn btn-info btn-sm float-right"
+                                data-placement="left">
+                                <i class="fas fa-arrow-left"></i> Volver
+                            </a>
+                        </div>
                     </div>
-                    <div class="card-body bg-white">
-                        <form method="POST" action="{{ route('deudores.update', $deudore->id) }}"  role="form" enctype="multipart/form-data">
-                            {{ method_field('PATCH') }}
-                            @csrf
+                </div>
+                <div class="card-body bg-white">
+                    <form method="POST" action="{{ route('deudores.update', $deudore->id) }}" role="form"
+                        enctype="multipart/form-data">
+                        {{ method_field('PATCH') }}
+                        @csrf
 
-                            @include('deudore.form')
+                        @include('deudore.form')
 
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 @endsection

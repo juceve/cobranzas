@@ -74,10 +74,12 @@
                                                 <a class=" dropdown-item text-secondary"
                                                     href="{{ route('empresas.show', $empresa->id) }}">
                                                     <i class="fa fa-fw fa-eye"></i> Ver Info</a>
-                                                @can('empresas.edit')
+                                                @can('empresas.upddb')
                                                 <a class="dropdown-item text-secondary"
                                                     href="{{ route('empresas.updatedb', $empresa->id) }}">
                                                     <i class="fas fa-database"></i> Actualiza DB</a>
+                                                @endcan
+                                                @can('empresas.edit')
                                                 <a class="dropdown-item text-secondary"
                                                     href="{{ route('empresas.edit', $empresa->id) }}"><i
                                                         class="fa fa-fw fa-edit"></i> Editar</a>

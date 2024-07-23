@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="card">
-    <div class="card-header bg-warning">
+    <div class="card-header" style="background-color: #f4e0a3">
         <div style="display: flex; justify-content: space-between; align-items: center;">
 
             <span id="card_title">
@@ -76,7 +76,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire({
-                    icon: "warning",
+                    icon: "info",
                     title: "Actualización iniciada",
                     html: "Por favor espere hasta que finalice el proceso y sea redireccionado.",
                         timerProgressBar: true,

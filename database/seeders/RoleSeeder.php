@@ -33,8 +33,14 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'empresas.index',  'grupo' => 'EMPRESAS', 'descripcion' => 'Ver listado'])->assignRole([$role]);
         Permission::create(['name' => 'empresas.create',  'grupo' => 'EMPRESAS', 'descripcion' => 'Crear'])->assignRole([$role]);
         Permission::create(['name' => 'empresas.edit',  'grupo' => 'EMPRESAS', 'descripcion' => 'Editar'])->assignRole([$role]);
+        Permission::create(['name' => 'empresas.upddb',  'grupo' => 'EMPRESAS', 'descripcion' => 'Actualiza DB'])->assignRole([$role]);
         Permission::create(['name' => 'empresas.destroy',  'grupo' => 'EMPRESAS', 'descripcion' => 'Eliminar'])->assignRole([$role]);
 
+
+        Permission::create(['name' => 'deudores.index',  'grupo' => 'DEUDORES', 'descripcion' => 'Ver listado'])->assignRole([$role]);
+        // Permission::create(['name' => 'deudores.create',  'grupo' => 'DEUDORES', 'descripcion' => 'Crear'])->assignRole([$role]);
+        Permission::create(['name' => 'deudores.edit',  'grupo' => 'DEUDORES', 'descripcion' => 'Editar'])->assignRole([$role]);
+        Permission::create(['name' => 'deudores.destroy',  'grupo' => 'DEUDORES', 'descripcion' => 'Eliminar'])->assignRole([$role]);
 
         // Permission::create(['name' => 'designaciones.index',  'grupo' => 'DESIGNACIONES', 'descripcion' => 'Ver listado'])->assignRole([$role]);
         // Permission::create(['name' => 'designaciones.create',  'grupo' => 'DESIGNACIONES', 'descripcion' => 'Crear'])->assignRole([$role]);

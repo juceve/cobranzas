@@ -304,10 +304,21 @@ return [
             'label_color' => 'success',
         ],
         [
+            'text' => 'Manejo de Deudas',
+            'route' => 'manejodeudas',
+            'icon' => 'fas fa-fw fa-hand-holding-usd'
+        ],
+        [
+            'text' => 'Deudores',
+            'route' => 'deudores.index',
+            'icon' => 'fas fa-fw fa-address-book'
+        ],
+        [
             'text' => 'Empresas',
-            'url' => 'empresas',
+            'route' => 'empresas.index',
             'icon' => 'fas fa-fw fa-building'
         ],
+
         // [
         //     'text' => 'Tablas',
         //     'route' => 'tablas',

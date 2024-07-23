@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('deudas', function (Blueprint $table) {
             $table->id();
-            $table->string("fecha", 100)->nullable();
+            $table->date("fecha")->nullable();
             $table->integer("numdoc")->id();
             $table->float("importe", 10, 2)->nullable();
             $table->float("saldo", 10, 2)->nullable();
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string("entnombresupervisor", 100)->nullable();
             $table->string("entnombrevendedor", 100)->nullable();
             $table->string("plazo", 100)->nullable();
-            $table->string("fechaultimopago", 100)->nullable();
+            $table->date("fechaultimopago")->nullable();
             $table->string("ciunombre", 100)->nullable();
             $table->foreignId("deudore_id")->nullable()->constrained()->nullOnDelete();
             $table->string("limitecredito", 100)->nullable();
