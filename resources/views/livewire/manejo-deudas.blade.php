@@ -1,12 +1,15 @@
 <div>
-    @section('title', 'Manejo de Deudas')
+    @section('title', 'Deudas')
 
     @section('content_header')
-    <h4>Manejo de Deudas</h4>
+    <h4>Deudas</h4>
     @endsection
 
     <div class="container-fluid">
         <div class="card">
+            <div class="card-header bg-primary">
+                Listado de Deudas
+            </div>
             <div class="card-body">
                 <div class="row mb-2">
                     <div class="input-group mb-1 col-12 col-sm-4 col-xl-5">
@@ -139,40 +142,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($resultados as $deudore)
-                            <tr class="table-{{$deudore->ctrlupdate?'success':'secondary'}}">
-                                <td>{{$deudore->id}}</td>
-                                <td>{{$deudore->fecha}}</td>
-                                <td>{{$deudore->codigocliente}}</td>
-                                <td>{{$deudore->cliente}}</td>
-                                <td>{{$deudore->numdoc}}</td>
-                                <td>{{$deudore->fechaultimopago}}</td>
-                                <td class="text-right">{{number_format($deudore->saldo,2,'.')}}</td>
-                                <td class="text-right">{{number_format($deudore->importe,2,'.')}}</td>
-                                <td>{{$deudore->rango}}</td>
+                            @if ($resultados)
+                            @foreach ($resultados as $deuda)
+                            <tr class="table-{{$deuda->ctrlupdate?'success':'secondary'}}">
+                                <td>{{$deuda->id}}</td>
+                                <td>{{$deuda->fecha}}</td>
+                                <td>{{$deuda->codigocliente}}</td>
+                                <td>{{$deuda->cliente}}</td>
+                                <td>{{$deuda->numdoc}}</td>
+                                <td>{{$deuda->fechaultimopago}}</td>
+                                <td class="text-right">{{number_format($deuda->saldo,2,'.')}}</td>
+                                <td class="text-right">{{number_format($deuda->importe,2,'.')}}</td>
+                                <td>{{$deuda->rango}}</td>
                                 <td class="text-right">
-                                    {{-- <form class="delete" action="{{ route('deudores.destroy', $deudore->id) }}"
-                                        method="POST" onsubmit="return false">
-                                        @can('deudores.index')
-                                        <a class="btn btn-sm btn-outline-primary "
-                                            href="{{ route('deudores.show', $deudore->id) }}" title="Ver Info"><i
-                                                class="fa fa-fw fa-eye"></i></a>
-                                        @endcan
-                                        @can('deudores.edit')
-                                        <a class="btn btn-sm btn-outline-success"
-                                            href="{{ route('deudores.edit', $deudore->id) }}" title="Editar"><i
-                                                class="fa fa-fw fa-edit"></i></a>
-                                        @endcan
-                                        @csrf
-                                        @method('DELETE')
-                                        @can('deudores.destroy')
-                                        <button type="submit" class="btn btn-outline-danger btn-sm"
-                                            title="Eliminar DB"><i class="fa fa-fw fa-trash"></i></button>
-                                        @endcan
-                                    </form> --}}
+                                    <a class="btn btn-sm btn-outline-primary "
+                                        href="{{ route('deudas.show', $deuda->id) }}"><i class="fa fa-fw fa-eye"></i>
+                                        Ver Info</a>
                                 </td>
                             </tr>
                             @endforeach
+                            @else
+                            <tr>
+                                <td colspan="10" class="text-center"><strong><i>No se encontraron
+                                            resultados.</i></strong></td>
+                            </tr>
+                            @endif
+
                         </tbody>
                     </table>
                 </div>

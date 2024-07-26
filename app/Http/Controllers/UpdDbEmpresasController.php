@@ -100,7 +100,8 @@ class UpdDbEmpresasController extends Controller
                                     // SI NO ESTA REGISTRADA LA DEUDA REGISTRA UNA NUEVA
                                     $fecha = new DateTime($item[0]);
                                     $fecha = $fecha->format('Y-m-d');
-
+                                    $vence = new DateTime($item[4]);
+                                    $vence = $vence->format('Y-m-d');
                                     $ultfecha = new DateTime($item[14]);
                                     $ultfecha = $ultfecha->format('Y-m-d');
                                     // $fecha = strtotime($fecarray[0]);
@@ -109,7 +110,7 @@ class UpdDbEmpresasController extends Controller
                                         "numdoc" => $item[1],
                                         "importe" => $item[2],
                                         "saldo" => $item[3],
-                                        "vence" => $item[4],
+                                        "vence" => $vence,
                                         "antiguedad" => $item[5],
                                         "anticuacion" => $item[6],
                                         "rango" => $item[7],
@@ -138,13 +139,14 @@ class UpdDbEmpresasController extends Controller
                                     } else {
                                         $ultfecha = new DateTime($item[14]);
                                         $ultfecha = $ultfecha->format('Y-m-d');
-
+                                        $vence = new DateTime($item[4]);
+                                        $vence = $vence->format('Y-m-d');
                                         $deuda->ctrlupdate = 1;
                                         $deuda->saldo = $item[3];
                                         $deuda->rango = $item[7];
                                         $deuda->fechaultimopago = $ultfecha;
                                         $deuda->plazo = $item[13];
-                                        $deuda->vence = $item[4];
+                                        $deuda->vence = $vence;
                                         $deuda->save();
                                     }
                                 }
@@ -159,7 +161,8 @@ class UpdDbEmpresasController extends Controller
                                 ]);
                                 $fecha = new DateTime($item[0]);
                                 $fecha = $fecha->format('Y-m-d');
-
+                                $vence = new DateTime($item[4]);
+                                $vence = $vence->format('Y-m-d');
                                 $ultfecha = new DateTime($item[14]);
                                 $ultfecha = $ultfecha->format('Y-m-d');
 
@@ -169,7 +172,7 @@ class UpdDbEmpresasController extends Controller
                                     "numdoc" => $item[1],
                                     "importe" => $item[2],
                                     "saldo" => $item[3],
-                                    "vence" => $item[4],
+                                    "vence" => $vence,
                                     "antiguedad" => $item[5],
                                     "anticuacion" => $item[6],
                                     "rango" => $item[7],

@@ -1,129 +1,192 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    {{ $deuda->name ?? __('Show') . " " . __('Deuda') }}
+@section('title', 'Información de Deuda')
+
+@section('content_header')
+<h4>Información de Deuda</h4>
 @endsection
 
 @section('content')
-    <section class="content container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                        <div class="float-left">
-                            <span class="card-title">{{ __('Show') }} Deuda</span>
-                        </div>
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-info">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+
+                        <span id="card_title">
+                            Datos de la Deuda
+                        </span>
+
                         <div class="float-right">
-                            <a class="btn btn-primary btn-sm" href="{{ route('deudas.index') }}"> {{ __('Back') }}</a>
+                            <a href="{{ route('manejodeudas') }}" class="btn btn-info btn-sm float-right"
+                                data-placement="left">
+                                <i class="fas fa-arrow-left"></i> Volver
+                            </a>
                         </div>
                     </div>
+                </div>
 
-                    <div class="card-body bg-white">
-                        
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Fecha:</strong>
-                                    {{ $deuda->fecha }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Numdoc:</strong>
-                                    {{ $deuda->numdoc }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Importe:</strong>
-                                    {{ $deuda->importe }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Saldo:</strong>
-                                    {{ $deuda->saldo }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Vence:</strong>
-                                    {{ $deuda->vence }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Antiguedad:</strong>
-                                    {{ $deuda->antiguedad }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Anticuacion:</strong>
-                                    {{ $deuda->anticuacion }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Rango:</strong>
-                                    {{ $deuda->rango }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Cliente:</strong>
-                                    {{ $deuda->cliente }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Clilugar:</strong>
-                                    {{ $deuda->clilugar }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Entnombrejefevendedor:</strong>
-                                    {{ $deuda->entnombrejefevendedor }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Entnombresupervisor:</strong>
-                                    {{ $deuda->entnombresupervisor }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Entnombrevendedor:</strong>
-                                    {{ $deuda->entnombrevendedor }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Plazo:</strong>
-                                    {{ $deuda->plazo }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Fechaultimopago:</strong>
-                                    {{ $deuda->fechaultimopago }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Ciunombre:</strong>
-                                    {{ $deuda->ciunombre }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Deudore Id:</strong>
-                                    {{ $deuda->deudore_id }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Limitecredito:</strong>
-                                    {{ $deuda->limitecredito }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Rutid:</strong>
-                                    {{ $deuda->rutid }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Coordenadax:</strong>
-                                    {{ $deuda->coordenadax }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Coordenaday:</strong>
-                                    {{ $deuda->coordenaday }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Telefono:</strong>
-                                    {{ $deuda->telefono }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Estado:</strong>
-                                    {{ $deuda->estado }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Direccion:</strong>
-                                    {{ $deuda->direccion }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Ctrlupdate:</strong>
-                                    {{ $deuda->ctrlupdate }}
-                                </div>
-
+                <div class="card-body bg-white">
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Fecha:</strong>
+                                {{ $deuda->fecha }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Num Doc:</strong>
+                                {{ $deuda->numdoc }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Importe:</strong>
+                                {{ number_format($deuda->importe ,2,'.')}}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Saldo:</strong>
+                                {{ number_format($deuda->saldo,2,'.') }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Vence:</strong>
+                                {{ $deuda->vence }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Antigüedad:</strong>
+                                {{ $deuda->antiguedad }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Anticuación:</strong>
+                                {{ $deuda->anticuacion }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Rango:</strong>
+                                {{ $deuda->rango }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Cliente:</strong>
+                                {{ $deuda->cliente }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Ciudad Cliente:</strong>
+                                {{ $deuda->clilugar }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Jefe Vendedor:</strong>
+                                {{ $deuda->entnombrejefevendedor }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Supervisor:</strong>
+                                {{ $deuda->entnombresupervisor }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Vendedor:</strong>
+                                {{ $deuda->entnombrevendedor }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Plazo:</strong>
+                                {{ $deuda->plazo }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Fecha Ultimo Pago:</strong>
+                                {{ $deuda->fechaultimopago }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Ciudad:</strong>
+                                {{ $deuda->ciunombre }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Deudor:</strong>
+                                {{ $deuda->deudore?$deuda->deudore->nombre:'NULL' }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Limite Credito:</strong>
+                                {{ number_format($deuda->limitecredito,2,'.') }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>ID Ruta:</strong>
+                                {{ $deuda->rutid }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Coordenada X:</strong>
+                                {{ $deuda->coordenadax }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Coordenada Y:</strong>
+                                {{ $deuda->coordenaday }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Telefono:</strong>
+                                {{ $deuda->telefono }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Estado:</strong>
+                                {{ $deuda->estado }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Dirección:</strong>
+                                {{ $deuda->direccion }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Control de Actualización:</strong>
+                                @if ($deuda->ctrlupdate)
+                                <span class="badge badge-pill badge-success">Con Cambios</span>
+                                @else
+                                <span class="badge badge-pill badge-secondary">Sin Cambios</span>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 @endsection

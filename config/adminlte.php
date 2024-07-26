@@ -303,19 +303,29 @@ return [
             'label' => 4,
             'label_color' => 'success',
         ],
+
         [
-            'text' => 'Manejo de Deudas',
-            'route' => 'manejodeudas',
-            'icon' => 'fas fa-fw fa-hand-holding-usd'
+            'text' => 'Lotes',
+            'url' => 'lotes',
+            // 'can' => 'deudores.index',
+            'icon' => 'fas fa-fw fa-archive'
         ],
         [
             'text' => 'Deudores',
             'route' => 'deudores.index',
+            'can' => 'deudores.index',
             'icon' => 'fas fa-fw fa-address-book'
+        ],
+        [
+            'text' => 'Deudas',
+            'route' => 'manejodeudas',
+            'icon' => 'fas fa-fw fa-hand-holding-usd',
+            'can' => 'manejodeudas',
         ],
         [
             'text' => 'Empresas',
             'route' => 'empresas.index',
+            'can' => 'empresas.index',
             'icon' => 'fas fa-fw fa-building'
         ],
 
@@ -333,11 +343,13 @@ return [
                 [
                     'text' => 'Usuarios',
                     'route' => 'users',
+                    'can' => 'users.index',
                     'icon' => 'fas fa-fw fa-users'
                 ],
                 [
                     'text' => 'Roles y Permisos',
                     'route' => 'roles.index',
+                    'can' => 'admin.roles.index',
                     'icon' => 'fas fa-fw fa-user-shield'
                 ],
             ],

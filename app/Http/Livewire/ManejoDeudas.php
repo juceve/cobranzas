@@ -15,7 +15,7 @@ class ManejoDeudas extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $empresa_id = "", $search = "", $filas = 10;
+    public $empresa_id = 1, $search = "", $filas = 10;
     public $sortField = 'id';
     public $sortDirection = 'asc';
 

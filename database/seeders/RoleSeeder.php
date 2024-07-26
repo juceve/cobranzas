@@ -42,6 +42,8 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'deudores.edit',  'grupo' => 'DEUDORES', 'descripcion' => 'Editar'])->assignRole([$role]);
         Permission::create(['name' => 'deudores.destroy',  'grupo' => 'DEUDORES', 'descripcion' => 'Eliminar'])->assignRole([$role]);
 
+        Permission::create(['name' => 'manejodeudas',  'grupo' => 'DEUDAS', 'descripcion' => 'Ver listado'])->assignRole([$role]);
+
         // Permission::create(['name' => 'designaciones.index',  'grupo' => 'DESIGNACIONES', 'descripcion' => 'Ver listado'])->assignRole([$role]);
         // Permission::create(['name' => 'designaciones.create',  'grupo' => 'DESIGNACIONES', 'descripcion' => 'Crear'])->assignRole([$role]);
         // Permission::create(['name' => 'designaciones.edit',  'grupo' => 'DESIGNACIONES', 'descripcion' => 'Editar'])->assignRole([$role]);
