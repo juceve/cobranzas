@@ -4,10 +4,12 @@ use App\Http\Controllers\DeudaController;
 use App\Http\Controllers\DeudoreController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\ExcelUploadController;
+use App\Http\Controllers\GestiontipoController;
 use App\Http\Controllers\LoteController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UpdDbEmpresasController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ZonaController;
 use App\Http\Livewire\ListadoDeudores;
 use App\Http\Livewire\ManejoDeudas;
 use App\Http\Livewire\NuevoLote;
@@ -57,6 +59,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('deudores', DeudoreController::class)->except(['create', 'store'])->names('deudores');
     Route::resource('deudas', DeudaController::class)->only('show')->names('deudas');
     Route::resource('lotes', LoteController::class)->names('lotes');
+    Route::resource('zonas', ZonaController::class)->names('zonas');
+    Route::resource('gestiontipos', GestiontipoController::class)->names('gestiontipos');
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });

@@ -30,6 +30,16 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.roles.edit',  'grupo' => 'ROLES', 'descripcion' => 'Editar'])->assignRole([$role]);
         Permission::create(['name' => 'admin.roles.destroy',  'grupo' => 'ROLES', 'descripcion' => 'Eliminar'])->assignRole([$role]);
 
+        Permission::create(['name' => 'zonas.index',  'grupo' => 'ZONAS', 'descripcion' => 'Ver listado'])->assignRole([$role]);
+        Permission::create(['name' => 'zonas.create',  'grupo' => 'ZONAS', 'descripcion' => 'Crear'])->assignRole([$role]);
+        Permission::create(['name' => 'zonas.edit',  'grupo' => 'ZONAS', 'descripcion' => 'Editar'])->assignRole([$role]);
+        Permission::create(['name' => 'zonas.destroy',  'grupo' => 'ZONAS', 'descripcion' => 'Eliminar'])->assignRole([$role]);
+
+        Permission::create(['name' => 'gestiontipos.index',  'grupo' => 'TIPOS DE GESTION', 'descripcion' => 'Ver listado'])->assignRole([$role]);
+        Permission::create(['name' => 'gestiontipos.create',  'grupo' => 'TIPOS DE GESTION', 'descripcion' => 'Crear'])->assignRole([$role]);
+        Permission::create(['name' => 'gestiontipos.edit',  'grupo' => 'TIPOS DE GESTION', 'descripcion' => 'Editar'])->assignRole([$role]);
+        Permission::create(['name' => 'gestiontipos.destroy',  'grupo' => 'TIPOS DE GESTION', 'descripcion' => 'Eliminar'])->assignRole([$role]);
+
         Permission::create(['name' => 'empresas.index',  'grupo' => 'EMPRESAS', 'descripcion' => 'Ver listado'])->assignRole([$role]);
         Permission::create(['name' => 'empresas.create',  'grupo' => 'EMPRESAS', 'descripcion' => 'Crear'])->assignRole([$role]);
         Permission::create(['name' => 'empresas.edit',  'grupo' => 'EMPRESAS', 'descripcion' => 'Editar'])->assignRole([$role]);

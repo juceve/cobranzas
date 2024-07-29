@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('lote_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('deuda_id')->nullable()->constrained()->nullOnDelete();
             $table->boolean('contactado')->default(false);
+            $table->foreignId('gestiontipo_id')->nullable()->constrained()->nullOnDelete();
             $table->date('fechacontacto')->nullable();
             $table->string('nombrecontacto')->nullable();
             $table->date('proxcontacto')->nullable();

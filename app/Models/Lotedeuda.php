@@ -4,29 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Lotedeuda
- *
- * @property $id
- * @property $lote_id
- * @property $deuda_id
- * @property $contactado
- * @property $fechacontacto
- * @property $nombrecontacto
- * @property $proxcontacto
- * @property $detalles
- * @property $finalizado
- * @property $created_at
- * @property $updated_at
- *
- * @property Deuda $deuda
- * @property Lote $lote
- * @package App
- * @mixin \Illuminate\Database\Eloquent\Builder
- */
 class Lotedeuda extends Model
 {
-    
+
     protected $perPage = 20;
 
     /**
@@ -34,7 +14,7 @@ class Lotedeuda extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['lote_id', 'deuda_id', 'contactado', 'fechacontacto', 'nombrecontacto', 'proxcontacto', 'detalles', 'finalizado'];
+    protected $fillable = ['lote_id', 'deuda_id', 'contactado', 'gestiontipo_id', 'fechacontacto', 'nombrecontacto', 'proxcontacto', 'detalles', 'finalizado'];
 
 
     /**
@@ -44,7 +24,7 @@ class Lotedeuda extends Model
     {
         return $this->belongsTo(\App\Models\Deuda::class, 'deuda_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -52,5 +32,9 @@ class Lotedeuda extends Model
     {
         return $this->belongsTo(\App\Models\Lote::class, 'lote_id', 'id');
     }
-    
+
+    public function gestiontipo()
+    {
+        return $this->hasOne(Gestiontipo::class, 'gestiontipo_id', 'id');
+    }
 }

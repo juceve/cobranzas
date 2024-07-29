@@ -8,6 +8,8 @@ use App\Models\Lote;
 use App\Models\Lotedeuda;
 use App\Models\User;
 use App\Models\Vwdeudas;
+use App\Models\Vwdeudaslotes;
+use App\Models\Zona;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -21,30 +23,54 @@ class NuevoLote extends Component
     public $selectDeudas = [];
     public $selectIds = [];
     public $usuarios, $selectUser;
+    public $zonas, $zona_id = "";
 
     public function mount($empresa_id)
     {
         $this->empresa = Empresa::find($empresa_id);
         $this->usuarios = User::all();
+        $this->zonas = Zona::all();
     }
 
     public function render()
     {
         if (!count($this->selectIds)) {
             if ($this->search == "") {
-                $deudas = Vwdeudas::paginate($this->filas);
+                if ($this->zona_id == "") {
+                    $deudas = Vwdeudaslotes::paginate($this->filas);
+                } else {
+                    $deudas = Vwdeudaslotes::where('zona_id', $this->zona_id)->paginate($this->filas);
+                }
             } else {
-                $deudas = Vwdeudas::where('numdoc', 'LIKE', '%' . $this->search . '%')
-                    ->orWhere('cliente', 'LIKE', '%' . $this->search . '%')
-                    ->paginate($this->filas);
+                if ($this->zona_id != "") {
+                    $deudas = Vwdeudaslotes::where([['numdoc', 'LIKE', '%' . $this->search . '%'], ['zona_id', $this->zona_id]])
+                        ->orWhere([['cliente', 'LIKE', '%' . $this->search . '%'], ['zona_id', $this->zona_id]])
+                        ->paginate($this->filas);
+                } else {
+                    $deudas = Vwdeudaslotes::where('numdoc', 'LIKE', '%' . $this->search . '%')
+                        ->orWhere('cliente', 'LIKE', '%' . $this->search . '%')
+                        ->paginate($this->filas);
+                }
             }
         } else {
             if ($this->search == "") {
-                $deudas = Vwdeudas::whereNotIn('id', $this->selectIds)->paginate($this->filas);
+                if ($this->zona_id == "") {
+                    $deudas = Vwdeudaslotes::whereNotIn('id', $this->selectIds)->paginate($this->filas);
+                } else {
+                    $deudas = Vwdeudaslotes::where('zona_id', $this->zona_id)->whereNotIn('id', $this->selectIds)->paginate($this->filas);
+                }
             } else {
-                $deudas = Vwdeudas::where('numdoc', 'LIKE', '%' . $this->search . '%')
-                    ->orWhere('cliente', 'LIKE', '%' . $this->search . '%')
-                    ->whereNotIn('id', $this->selectIds)->paginate($this->filas);
+                if ($this->zona_id == "") {
+                    $deudas = Vwdeudaslotes::where('numdoc', 'LIKE', '%' . $this->search . '%')
+                        ->orWhere('cliente', 'LIKE', '%' . $this->search . '%')
+                        ->whereNotIn('id', $this->selectIds)
+                        ->paginate($this->filas);
+                } else {
+                    $deudas = Vwdeudaslotes::where([['numdoc', 'LIKE', '%' . $this->search . '%'], ['zona_id', $this->zona_id]])
+                        ->orWhere([['cliente', 'LIKE', '%' . $this->search . '%'], ['zona_id', $this->zona_id]])
+                        ->whereNotIn('id', $this->selectIds)
+                        ->paginate($this->filas);
+                }
             }
         }
 
@@ -60,23 +86,47 @@ class NuevoLote extends Component
     public function selectAll()
     {
         $deudas = [];
+
         if (!count($this->selectIds)) {
             if ($this->search == "") {
-                $deudas = Vwdeudas::all();
+                if ($this->zona_id == "") {
+                    $deudas = Vwdeudaslotes::all();
+                } else {
+                    $deudas = Vwdeudaslotes::where('zona_id', $this->zona_id)->get();
+                }
             } else {
-                $deudas = Vwdeudas::where('numdoc', 'LIKE', '%' . $this->search . '%')
-                    ->orWhere('cliente', 'LIKE', '%' . $this->search . '%')
-                    ->get();
+                if ($this->zona_id != "") {
+                    $deudas = Vwdeudaslotes::where([['numdoc', 'LIKE', '%' . $this->search . '%'], ['zona_id', $this->zona_id]])
+                        ->orWhere([['cliente', 'LIKE', '%' . $this->search . '%'], ['zona_id', $this->zona_id]])
+                        ->get();
+                } else {
+                    $deudas = Vwdeudaslotes::where('numdoc', 'LIKE', '%' . $this->search . '%')
+                        ->orWhere('cliente', 'LIKE', '%' . $this->search . '%')
+                        ->get();
+                }
             }
         } else {
             if ($this->search == "") {
-                $deudas = Vwdeudas::whereNotIn('id', $this->selectIds)->get();
+                if ($this->zona_id == "") {
+                    $deudas = Vwdeudaslotes::whereNotIn('id', $this->selectIds)->get();
+                } else {
+                    $deudas = Vwdeudaslotes::where('zona_id', $this->zona_id)->whereNotIn('id', $this->selectIds)->get();
+                }
             } else {
-                $deudas = Vwdeudas::where('numdoc', 'LIKE', '%' . $this->search . '%')
-                    ->orWhere('cliente', 'LIKE', '%' . $this->search . '%')
-                    ->whereNotIn('id', $this->selectIds)->get();
+                if ($this->zona_id == "") {
+                    $deudas = Vwdeudaslotes::where('numdoc', 'LIKE', '%' . $this->search . '%')
+                        ->orWhere('cliente', 'LIKE', '%' . $this->search . '%')
+                        ->whereNotIn('id', $this->selectIds)
+                        ->get();
+                } else {
+                    $deudas = Vwdeudaslotes::where([['numdoc', 'LIKE', '%' . $this->search . '%'], ['zona_id', $this->zona_id]])
+                        ->orWhere([['cliente', 'LIKE', '%' . $this->search . '%'], ['zona_id', $this->zona_id]])
+                        ->whereNotIn('id', $this->selectIds)
+                        ->get();
+                }
             }
         }
+
         foreach ($deudas as $item) {
             $this->selectDeudas[] = $item->toArray();
             $this->selectIds[] = $item->id;
@@ -97,6 +147,10 @@ class NuevoLote extends Component
     }
 
     public function updatedFilas()
+    {
+        $this->resetPage();
+    }
+    public function updatedZonaId()
     {
         $this->resetPage();
     }

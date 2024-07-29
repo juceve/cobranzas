@@ -335,7 +335,18 @@ return [
         //     'icon' => 'far fa-fw fa-table',
         // ],
         ['header' => 'Ajustes del Sistema'],
-
+        [
+            'text' => 'Zonas',
+            'route' => 'zonas.index',
+            'can' => 'zonas.index',
+            'icon' => 'fas fa-fw fa-map-marked-alt'
+        ],
+        [
+            'text' => 'Tipo Gestion',
+            'route' => 'gestiontipos.index',
+            'can' => 'gestiontipos.index',
+            'icon' => 'fas fa-fw fa-th-list'
+        ],
         [
             'text' => 'Usuario y Roles',
             'icon' => 'fas fa-fw fa-users-cog',

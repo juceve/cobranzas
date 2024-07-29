@@ -32,6 +32,7 @@ return new class extends Migration
             $table->foreignId("deudore_id")->nullable()->constrained()->nullOnDelete();
             $table->string("limitecredito", 100)->nullable();
             $table->string("rutid", 100)->nullable();
+            $table->foreignId('zona_id')->nullable()->constrained()->nullOnDelete();
             $table->string("coordenadax", 100)->nullable();
             $table->string("coordenaday", 100)->nullable();
             $table->string("telefono", 100)->nullable();

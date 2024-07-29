@@ -23,12 +23,21 @@
                     <div class="card-body">
 
                         <div class="row">
-                            <div class="input-group mb-1 col-12 col-sm-8 col-xl-8 mb-2">
+                            <div class="input-group mb-1 col-12 col-sm-5 col-xl-5 mb-2">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-search"></i></span>
                                 </div>
                                 <input type="search" class="form-control form-control-sm" placeholder="Busqueda..."
                                     wire:model.debounce.500ms='search'>
+                            </div>
+                            <div class="input-group mb-1 col-12 col-sm-3 col-xl-3 mb-2">
+                                <select class="form-control form-control-sm" wire:model='zona_id'
+                                    style="font-size: 12px;">
+                                    <option value="">Todas las Zonas</option>
+                                    @foreach ($zonas as $zona)
+                                    <option value="{{$zona->id}}">{{$zona->nombre}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col-7 col-sm-4 col-xl-4 mb-2 ">
                                 <div class="d-flex align-items-center" style="font-size: 12px;">
@@ -51,7 +60,7 @@
                                     <tr class="table-primary">
                                         <th>NUM DOC</th>
                                         <th>CLIENTE</th>
-                                        <th>IMPORTE</th>
+                                        <th>ZONA</th>
                                         <th>SALDO</th>
                                         <th>ULT. PAGO</th>
                                         <th></th>
@@ -62,7 +71,7 @@
                                     <tr>
                                         <td class="align-middle">{{$deuda['numdoc']}}</td>
                                         <td class="align-middle">{{$deuda['cliente']}}</td>
-                                        <td class="text-right align-middle">{{number_format($deuda['importe'],2,'.')}}
+                                        <td class="align-middle">{{$deuda->zona_id?$deuda->zona->nombre:"Sin asignar"}}
                                         </td>
                                         <td class="text-right align-middle">{{number_format($deuda['saldo'],2,'.')}}
                                         </td>
