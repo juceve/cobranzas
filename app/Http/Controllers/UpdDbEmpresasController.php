@@ -6,6 +6,7 @@ use App\Imports\ExcelEmpresasImport;
 use App\Models\Deuda;
 use App\Models\Deudore;
 use App\Models\Empresa;
+use App\Models\Movimiento;
 use App\Models\Registroact;
 use Carbon\Carbon;
 use DateTime;
@@ -110,6 +111,7 @@ class UpdDbEmpresasController extends Controller
                                         "numdoc" => $item[1],
                                         "importe" => $item[2],
                                         "saldo" => $item[3],
+                                        "saldointerno" => $item[3],
                                         "vence" => $vence,
                                         "antiguedad" => $item[5],
                                         "anticuacion" => $item[6],
@@ -131,6 +133,19 @@ class UpdDbEmpresasController extends Controller
                                         "estado" => $item[22],
                                         "direccion" => $item[23]
                                     ]);
+                                    // REGISTRA MOVIMIENTO POR SER NUEVA DEUDA
+                                    $movimiento = Movimiento::create([
+                                        'deuda_id' => $deuda->id,
+                                        'user_id' => Auth::user()->id,
+                                        'fecha' => $deuda->fecha,
+                                        'saldoanterior' => 0,
+                                        'saldonuevo' => $deuda->saldo,
+                                        'fecultpagoanterior' => $deuda->fechaultimopago,
+                                        'fecultpagonuevo' => $deuda->fechaultimopago,
+                                        'rangoanterior' => $deuda->rango,
+                                        'rangonuevo' => $deuda->rango,
+                                        'observaciones' => "INICIO DE REGISTRO",
+                                    ]);
                                 } else {
                                     // SI ESTA REGISTRADA LA DEUDA REALIZA OPERACIONES DE ACTUALIZACION
                                     if ($deuda->saldo == $item[3]) {
@@ -141,6 +156,21 @@ class UpdDbEmpresasController extends Controller
                                         $ultfecha = $ultfecha->format('Y-m-d');
                                         $vence = new DateTime($item[4]);
                                         $vence = $vence->format('Y-m-d');
+
+                                        // REGISTRA MOVIMIENTO POR ENCONTRAR MODIFICACIONES                                        
+                                        $movimiento = Movimiento::create([
+                                            'deuda_id' => $deuda->id,
+                                            'user_id' => Auth::user()->id,
+                                            'fecha' => date('Y-m-d'),
+                                            'saldoanterior' => $deuda->saldo,
+                                            'saldonuevo' => $item[3],
+                                            'fecultpagoanterior' => $deuda->fechaultimopago,
+                                            'fecultpagonuevo' => $ultfecha,
+                                            'rangoanterior' => $deuda->rango,
+                                            'rangonuevo' => $item[7],
+                                            'observaciones' => "ACTUALIZACION DE DB",
+                                        ]);
+
                                         $deuda->ctrlupdate = 1;
                                         $deuda->saldo = $item[3];
                                         $deuda->rango = $item[7];
@@ -172,6 +202,7 @@ class UpdDbEmpresasController extends Controller
                                     "numdoc" => $item[1],
                                     "importe" => $item[2],
                                     "saldo" => $item[3],
+                                    "saldointerno" => $item[3],
                                     "vence" => $vence,
                                     "antiguedad" => $item[5],
                                     "anticuacion" => $item[6],
@@ -192,6 +223,19 @@ class UpdDbEmpresasController extends Controller
                                     "telefono" => $item[21],
                                     "estado" => $item[22],
                                     "direccion" => $item[23]
+                                ]);
+                                // REGISTRA MOVIMIENTO POR SER NUEVA DEUDA
+                                $movimiento = Movimiento::create([
+                                    'deuda_id' => $deuda->id,
+                                    'user_id' => Auth::user()->id,
+                                    'fecha' => $deuda->fecha,
+                                    'saldoanterior' => 0,
+                                    'saldonuevo' => $deuda->saldo,
+                                    'fecultpagoanterior' => $deuda->fechaultimopago,
+                                    'fecultpagonuevo' => $deuda->fechaultimopago,
+                                    'rangoanterior' => $deuda->rango,
+                                    'rangonuevo' => $deuda->rango,
+                                    'observaciones' => "INICIO DE REGISTRO",
                                 ]);
                             }
                         }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoteRequest extends FormRequest
+class ContactoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,11 @@ class LoteRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'codigo' => 'string',
-			'fecha' => 'required',
+			'horacontacto' => 'string',
+			'nombrecontacto' => 'string',
+			'solicitudempresa' => 'string',
+			'accionpropia' => 'string',
+			'urlfoto' => 'string',
 			'status' => 'required',
         ];
     }

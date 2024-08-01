@@ -29,24 +29,8 @@
                                     {{ $lotedeuda->deuda_id }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Contactado:</strong>
-                                    {{ $lotedeuda->contactado }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Fechacontacto:</strong>
-                                    {{ $lotedeuda->fechacontacto }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Nombrecontacto:</strong>
-                                    {{ $lotedeuda->nombrecontacto }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Proxcontacto:</strong>
-                                    {{ $lotedeuda->proxcontacto }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Detalles:</strong>
-                                    {{ $lotedeuda->detalles }}
+                                    <strong>Fechahoracobro:</strong>
+                                    {{ $lotedeuda->fechahoracobro }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
                                     <strong>Finalizado:</strong>

@@ -12,6 +12,6 @@
 
 @section('js')
 <script>
-    Swal.fire("SweetAlert2 is working!");
+    // Swal.fire("SweetAlert2 is working!");
 </script>
 @endsection

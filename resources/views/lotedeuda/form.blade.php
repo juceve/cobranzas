@@ -12,29 +12,9 @@
             {!! $errors->first('deuda_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">
-            <label for="contactado" class="form-label">{{ __('Contactado') }}</label>
-            <input type="text" name="contactado" class="form-control @error('contactado') is-invalid @enderror" value="{{ old('contactado', $lotedeuda?->contactado) }}" id="contactado" placeholder="Contactado">
-            {!! $errors->first('contactado', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-        <div class="form-group mb-2 mb20">
-            <label for="fechacontacto" class="form-label">{{ __('Fechacontacto') }}</label>
-            <input type="text" name="fechacontacto" class="form-control @error('fechacontacto') is-invalid @enderror" value="{{ old('fechacontacto', $lotedeuda?->fechacontacto) }}" id="fechacontacto" placeholder="Fechacontacto">
-            {!! $errors->first('fechacontacto', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-        <div class="form-group mb-2 mb20">
-            <label for="nombrecontacto" class="form-label">{{ __('Nombrecontacto') }}</label>
-            <input type="text" name="nombrecontacto" class="form-control @error('nombrecontacto') is-invalid @enderror" value="{{ old('nombrecontacto', $lotedeuda?->nombrecontacto) }}" id="nombrecontacto" placeholder="Nombrecontacto">
-            {!! $errors->first('nombrecontacto', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-        <div class="form-group mb-2 mb20">
-            <label for="proxcontacto" class="form-label">{{ __('Proxcontacto') }}</label>
-            <input type="text" name="proxcontacto" class="form-control @error('proxcontacto') is-invalid @enderror" value="{{ old('proxcontacto', $lotedeuda?->proxcontacto) }}" id="proxcontacto" placeholder="Proxcontacto">
-            {!! $errors->first('proxcontacto', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-        <div class="form-group mb-2 mb20">
-            <label for="detalles" class="form-label">{{ __('Detalles') }}</label>
-            <input type="text" name="detalles" class="form-control @error('detalles') is-invalid @enderror" value="{{ old('detalles', $lotedeuda?->detalles) }}" id="detalles" placeholder="Detalles">
-            {!! $errors->first('detalles', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            <label for="fechahoracobro" class="form-label">{{ __('Fechahoracobro') }}</label>
+            <input type="text" name="fechahoracobro" class="form-control @error('fechahoracobro') is-invalid @enderror" value="{{ old('fechahoracobro', $lotedeuda?->fechahoracobro) }}" id="fechahoracobro" placeholder="Fechahoracobro">
+            {!! $errors->first('fechahoracobro', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">
             <label for="finalizado" class="form-label">{{ __('Finalizado') }}</label>

@@ -12,7 +12,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZonaController;
 use App\Http\Livewire\ListadoDeudores;
 use App\Http\Livewire\ManejoDeudas;
+use App\Http\Livewire\MisLotes;
 use App\Http\Livewire\NuevoLote;
+use App\Http\Livewire\ProcesarLote;
+use App\Http\Livewire\ProcesoDeuda;
 use App\Http\Livewire\UpddbEmpresas;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Auth;
@@ -29,9 +32,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes([
     "register" => false,
@@ -40,7 +41,9 @@ Auth::routes([
 ]);
 
 Route::middleware(['auth'])->group(function () {
-
+    Route::get('/', function () {
+        return view('home');
+    })->middleware('auth');
     Route::get('users/asignaRol/{user}', [UserController::class, 'asinaRol'])->name('users.asignaRol');
     Route::put('users/updateRol/{user}', [UserController::class, 'updateRol'])->name('users.updateRol');
     Route::get('users/cambiaestado/{user}', [UserController::class, 'cambiaestado'])->name('users.cambiaestado');
@@ -54,11 +57,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/listado-deudores', ListadoDeudores::class)->name('listadodeudores');
     Route::get('/manejo-deudas', ManejoDeudas::class)->can('manejodeudas')->name('manejodeudas');
     Route::get('/nuevo-lote/{empresa_id}', NuevoLote::class)->name('nuevolote');
+    Route::get('/mis-lotes/{empresa_id?}', MisLotes::class)->name('mislotes');
+    Route::get('/procesar-lote/{lote_id}', ProcesarLote::class)->name('procesarlote');
+    Route::get('/proceso-deuda/{lotedeuda_id}', ProcesoDeuda::class)->name('procesodeuda');
 
     Route::resource('empresas', EmpresaController::class)->names('empresas');
     Route::resource('deudores', DeudoreController::class)->except(['create', 'store'])->names('deudores');
     Route::resource('deudas', DeudaController::class)->only('show')->names('deudas');
-    Route::resource('lotes', LoteController::class)->names('lotes');
+    Route::resource('lotes', LoteController::class)->only('index')->names('lotes');
     Route::resource('zonas', ZonaController::class)->names('zonas');
     Route::resource('gestiontipos', GestiontipoController::class)->names('gestiontipos');
 

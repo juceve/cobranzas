@@ -5,25 +5,30 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Lotedeuda
+ * Class Movimiento
  *
  * @property $id
- * @property $lote_id
  * @property $deuda_id
- * @property $fechahoracobro
- * @property $finalizado
+ * @property $user_id
+ * @property $fecha
+ * @property $saldoanterior
+ * @property $saldonuevo
+ * @property $fecultpagoanterior
+ * @property $fecultpagonuevo
+ * @property $rangoanterior
+ * @property $rangonuevo
+ * @property $status
  * @property $created_at
  * @property $updated_at
  *
  * @property Deuda $deuda
- * @property Lote $lote
- * @property Contacto[] $contactos
+ * @property User $user
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class Lotedeuda extends Model
+class Movimiento extends Model
 {
-    
+
     protected $perPage = 20;
 
     /**
@@ -31,7 +36,7 @@ class Lotedeuda extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['lote_id', 'deuda_id', 'fechahoracobro', 'finalizado'];
+    protected $fillable = ['deuda_id', 'user_id', 'fecha', 'saldoanterior', 'saldonuevo', 'fecultpagoanterior', 'fecultpagonuevo', 'rangoanterior', 'rangonuevo', 'status', 'observaciones'];
 
 
     /**
@@ -41,21 +46,12 @@ class Lotedeuda extends Model
     {
         return $this->belongsTo(\App\Models\Deuda::class, 'deuda_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function lote()
+    public function user()
     {
-        return $this->belongsTo(\App\Models\Lote::class, 'lote_id', 'id');
+        return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
-    
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function contactos()
-    {
-        return $this->hasMany(\App\Models\Contacto::class, 'id', 'lotedeuda_id');
-    }
-    
 }

@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lotedeudas', function (Blueprint $table) {
+        Schema::create('estadocontactos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lote_id')->nullable()->constrained()->nullOnDelete();
-            $table->foreignId('deuda_id')->nullable()->constrained()->nullOnDelete();
-
-            $table->dateTime('fechahoracobro')->nullable();
-            $table->boolean('finalizado')->default(false);
+            $table->string('nombre');
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lotedeudas');
+        Schema::dropIfExists('estadocontactos');
     }
 };

@@ -305,10 +305,16 @@ return [
         ],
 
         [
-            'text' => 'Lotes',
+            'text' => 'Admin Lotes',
             'url' => 'lotes',
             // 'can' => 'deudores.index',
             'icon' => 'fas fa-fw fa-archive'
+        ],
+        [
+            'text' => 'Mis Lotes',
+            'route' => 'mislotes',
+            // 'can' => 'deudores.index',
+            'icon' => 'fas fa-fw fa-boxes'
         ],
         [
             'text' => 'Deudores',

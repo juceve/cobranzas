@@ -4,10 +4,28 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-
+/**
+ * Class Lote
+ *
+ * @property $id
+ * @property $codigo
+ * @property $fecha
+ * @property $avance
+ * @property $empresa_id
+ * @property $user_id
+ * @property $status
+ * @property $created_at
+ * @property $updated_at
+ *
+ * @property Empresa $empresa
+ * @property User $user
+ * @property Lotedeuda[] $lotedeudas
+ * @package App
+ * @mixin \Illuminate\Database\Eloquent\Builder
+ */
 class Lote extends Model
 {
-
+    
     protected $perPage = 20;
 
     /**
@@ -15,7 +33,7 @@ class Lote extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['fecha', 'codigo', 'avance', 'empresa_id', 'user_id', 'status'];
+    protected $fillable = ['codigo', 'fecha', 'avance', 'empresa_id', 'user_id', 'status'];
 
 
     /**
@@ -25,7 +43,7 @@ class Lote extends Model
     {
         return $this->belongsTo(\App\Models\Empresa::class, 'empresa_id', 'id');
     }
-
+    
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -33,7 +51,7 @@ class Lote extends Model
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
-
+    
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -41,4 +59,5 @@ class Lote extends Model
     {
         return $this->hasMany(\App\Models\Lotedeuda::class, 'id', 'lote_id');
     }
+    
 }

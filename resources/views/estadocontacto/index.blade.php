@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Lotedeudas
+    Estadocontactos
 @endsection
 
 @section('content')
@@ -13,11 +13,11 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Lotedeudas') }}
+                                {{ __('Estadocontactos') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('lotedeudas.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('estadocontactos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Create New') }}
                                 </a>
                               </div>
@@ -36,28 +36,22 @@
                                     <tr>
                                         <th>No</th>
                                         
-									<th >Lote Id</th>
-									<th >Deuda Id</th>
-									<th >Fechahoracobro</th>
-									<th >Finalizado</th>
+									<th >Nombre</th>
 
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($lotedeudas as $lotedeuda)
+                                    @foreach ($estadocontactos as $estadocontacto)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-										<td >{{ $lotedeuda->lote_id }}</td>
-										<td >{{ $lotedeuda->deuda_id }}</td>
-										<td >{{ $lotedeuda->fechahoracobro }}</td>
-										<td >{{ $lotedeuda->finalizado }}</td>
+										<td >{{ $estadocontacto->nombre }}</td>
 
                                             <td>
-                                                <form action="{{ route('lotedeudas.destroy', $lotedeuda->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('lotedeudas.show', $lotedeuda->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('lotedeudas.edit', $lotedeuda->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                <form action="{{ route('estadocontactos.destroy', $estadocontacto->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('estadocontactos.show', $estadocontacto->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('estadocontactos.edit', $estadocontacto->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
@@ -70,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $lotedeudas->withQueryString()->links() !!}
+                {!! $estadocontactos->withQueryString()->links() !!}
             </div>
         </div>
     </div>

@@ -16,7 +16,20 @@
                         <div class="float-right">
                             <a href="javascript:void(0);" class="text-primary" title="Seleccionar todos los registros"
                                 wire:click='selectAll'>
-                                <small>Sel. Todo <i class="fas fa-angle-double-right"></i></small>
+                                <small>
+
+                                    <div wire:loading wire:target='selectAll'>
+                                        Sel. Todo
+                                        <div class="spinner-border spinner-border-sm text-secondary" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                    <div wire:loading.remove wire:target='selectAll'>
+                                        Sel. Todo
+                                        <i class="fas fa-angle-double-right"></i>
+                                    </div>
+
+                                </small>
                             </a>
                         </div>
                     </div>
@@ -103,7 +116,19 @@
                     <div class="card-header">
                         <a href="javascript:void(0);" class="text-success" title="Quitar todos los registros"
                             wire:click='quitarAll'>
-                            <small> <i class="fas fa-angle-double-left"></i> Quitar Todo</small>
+                            <small>
+                                <div wire:loading wire:target='quitarAll'>
+
+                                    <div class="spinner-border spinner-border-sm text-secondary" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    Quitar Todo
+                                </div>
+                                <div wire:loading.remove wire:target='quitarAll'>
+                                    <i class="fas fa-angle-double-left"></i> Quitar Todo
+                                </div>
+
+                            </small>
                         </a>
                         <div class="float-right text-success">
                             <strong>NUEVO LOTE</strong>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Lotedeudas
+    Contactos
 @endsection
 
 @section('content')
@@ -13,11 +13,11 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Lotedeudas') }}
+                                {{ __('Contactos') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('lotedeudas.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('contactos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Create New') }}
                                 </a>
                               </div>
@@ -36,28 +36,46 @@
                                     <tr>
                                         <th>No</th>
                                         
-									<th >Lote Id</th>
-									<th >Deuda Id</th>
-									<th >Fechahoracobro</th>
-									<th >Finalizado</th>
+									<th >Lotedeuda Id</th>
+									<th >Estadocontacto Id</th>
+									<th >Gestiontipo Id</th>
+									<th >Fechacontacto</th>
+									<th >Horacontacto</th>
+									<th >Nombrecontacto</th>
+									<th >Proxcontacto</th>
+									<th >Detalles</th>
+									<th >Resultado</th>
+									<th >Solicitudempresa</th>
+									<th >Accionpropia</th>
+									<th >Urlfoto</th>
+									<th >Status</th>
 
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($lotedeudas as $lotedeuda)
+                                    @foreach ($contactos as $contacto)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-										<td >{{ $lotedeuda->lote_id }}</td>
-										<td >{{ $lotedeuda->deuda_id }}</td>
-										<td >{{ $lotedeuda->fechahoracobro }}</td>
-										<td >{{ $lotedeuda->finalizado }}</td>
+										<td >{{ $contacto->lotedeuda_id }}</td>
+										<td >{{ $contacto->estadocontacto_id }}</td>
+										<td >{{ $contacto->gestiontipo_id }}</td>
+										<td >{{ $contacto->fechacontacto }}</td>
+										<td >{{ $contacto->horacontacto }}</td>
+										<td >{{ $contacto->nombrecontacto }}</td>
+										<td >{{ $contacto->proxcontacto }}</td>
+										<td >{{ $contacto->detalles }}</td>
+										<td >{{ $contacto->resultado }}</td>
+										<td >{{ $contacto->solicitudempresa }}</td>
+										<td >{{ $contacto->accionpropia }}</td>
+										<td >{{ $contacto->urlfoto }}</td>
+										<td >{{ $contacto->status }}</td>
 
                                             <td>
-                                                <form action="{{ route('lotedeudas.destroy', $lotedeuda->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('lotedeudas.show', $lotedeuda->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('lotedeudas.edit', $lotedeuda->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                <form action="{{ route('contactos.destroy', $contacto->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('contactos.show', $contacto->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('contactos.edit', $contacto->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
@@ -70,7 +88,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $lotedeudas->withQueryString()->links() !!}
+                {!! $contactos->withQueryString()->links() !!}
             </div>
         </div>
     </div>

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer("numdoc")->id();
             $table->float("importe", 10, 2)->nullable();
             $table->float("saldo", 10, 2)->nullable();
+            $table->float("saldointerno", 10, 2)->nullable();
             $table->date("vence")->nullable();
             $table->string("antiguedad", 100)->nullable();
             $table->string("anticuacion", 100)->nullable();

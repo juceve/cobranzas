@@ -9,7 +9,7 @@
 @section('content')
 <section class="content container-fluid">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="card">
                 <div class="card-header bg-info">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -51,6 +51,12 @@
                             <div class="form-group mb-2 mb20">
                                 <strong>Saldo:</strong>
                                 {{ number_format($deuda->saldo,2,'.') }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group mb-2 mb20">
+                                <strong>Saldo Interno:</strong>
+                                {{ number_format($deuda->saldointerno,2,'.') }}
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
@@ -127,8 +133,14 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="form-group mb-2 mb20">
+                                <strong>Zona:</strong>
+                                {{ $deuda->zona_id?$deuda->zona->nombre:'Sin asignar' }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 d-none">
+                            <div class="form-group mb-2 mb20">
                                 <strong>Deudor:</strong>
-                                {{ $deuda->deudore?$deuda->deudore->nombre:'NULL' }}
+                                {{ $deuda->deudore_id?$deuda->deudore->cliente:"NULL" }}
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
@@ -187,6 +199,17 @@
                 </div>
             </div>
         </div>
+        <div class="col-12">
+            <div class="card card-outline card-info">
+                <div class="card-header text-info">
+                    MOVIMIENTOS REGISTRADOS
+                </div>
+                <div class="card-body">
+                    @livewire('movimientos', ['deuda_id' => $deuda->id])
+                </div>
+            </div>
+        </div>
     </div>
+
 </section>
 @endsection

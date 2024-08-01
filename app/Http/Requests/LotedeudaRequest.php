@@ -22,9 +22,6 @@ class LotedeudaRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'contactado' => 'required',
-			'nombrecontacto' => 'string',
-			'detalles' => 'string',
 			'finalizado' => 'required',
         ];
     }
