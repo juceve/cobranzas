@@ -102,7 +102,8 @@
             <div class="card-body">
 
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover table-sm" style="font-size: 12px;">
+                    <table class="table table-bordered table-striped table-hover table-sm dataTable"
+                        style="font-size: 12px;">
                         <thead>
                             <tr class="table-warning">
                                 <th>NUM. DOC</th>
@@ -376,10 +377,14 @@
         </div>
     </div>
 </div>
+@section('plugins.Datatables', true)
 @section('js')
 <script>
-    Livewire.on('cerrarmodal',()=>{
-        $('#modalProcDeuda').modal('hide');
+    $('.dataTable').DataTable({
+        destroy:true,
+        language: {
+        url: '{{asset("vendor/datatable/es-MX.json")}}',
+    },
     });
 </script>
 @endsection

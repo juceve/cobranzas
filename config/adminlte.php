@@ -293,9 +293,22 @@ return [
     |
     */
 
+
     'menu' => [
         // Navbar items:
-
+        [
+            'type' => 'navbar-notification',
+            'id' => 'my-notification',
+            'icon' => 'fas fa-bell',
+            'url' => 'notifications/show',
+            'topnav_right' => true,
+            'dropdown_mode' => true,
+            'dropdown_flabel' => 'All notifications',
+            'update_cfg' => [
+                'url' => 'notifications/get',
+                'period' => 30,
+            ],
+        ],
         [
             'text' => 'Dashboard',
             'url' => '/home',
@@ -317,6 +330,18 @@ return [
             'icon' => 'fas fa-fw fa-boxes'
         ],
         [
+            'text' => 'Recordatorios',
+            'route' => 'recordatorios.index',
+            // 'can' => 'deudores.index',
+            'icon' => 'fas fa-fw fa-bell'
+        ],
+        [
+            'text' => 'Compromisos de Pago',
+            'route' => 'compromisopagos.index',
+            // 'can' => 'deudores.index',
+            'icon' => 'fas fa-fw fa-calendar-check'
+        ],
+        [
             'text' => 'Deudores',
             'route' => 'deudores.index',
             'can' => 'deudores.index',
@@ -335,6 +360,8 @@ return [
             'icon' => 'fas fa-fw fa-building'
         ],
 
+
+
         // [
         //     'text' => 'Tablas',
         //     'route' => 'tablas',
@@ -351,6 +378,12 @@ return [
             'text' => 'Tipo Gestion',
             'route' => 'gestiontipos.index',
             'can' => 'gestiontipos.index',
+            'icon' => 'fas fa-fw fa-th-list'
+        ],
+        [
+            'text' => 'Estado de Contactos',
+            'route' => 'estadocontactos.index',
+            // 'can' => 'gestiontipos.index',
             'icon' => 'fas fa-fw fa-th-list'
         ],
         [

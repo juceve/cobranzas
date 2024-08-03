@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Nuevo Estado de Contacto')
+@section('title', 'Atención de Compromiso de Pago')
 
 @section('content_header')
-<h4>Nuevo Estado de Contacto</h4>
+<h4>Atención de Compromiso de Pago</h4>
 @endsection
 
 @section('content')
@@ -20,7 +20,7 @@
                         </span>
 
                         <div class="float-right">
-                            <a href="{{ route('estadocontactos.index') }}" class="btn btn-info btn-sm float-right"
+                            <a href="{{ route('compromisopagos.index') }}" class="btn btn-info btn-sm float-right"
                                 data-placement="left">
                                 <i class="fas fa-arrow-left"></i> Volver
                             </a>
@@ -28,11 +28,12 @@
                     </div>
                 </div>
                 <div class="card-body bg-white">
-                    <form method="POST" action="{{ route('estadocontactos.store') }}" role="form"
+                    <form method="POST" action="{{ route('compromisopagos.update', $compromisopago->id) }}" role="form"
                         enctype="multipart/form-data">
+                        {{ method_field('PATCH') }}
                         @csrf
 
-                        @include('estadocontacto.form')
+                        @include('compromisopago.form')
 
                     </form>
                 </div>

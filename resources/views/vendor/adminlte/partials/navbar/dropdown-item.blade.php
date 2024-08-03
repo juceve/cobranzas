@@ -2,12 +2,12 @@
 
 @if ($navbarItemHelper->isSubmenu($item))
 
-    {{-- Dropdown submenu --}}
-    @include('adminlte::partials.navbar.dropdown-item-submenu')
+{{-- Dropdown submenu --}}
+@include('adminlte::partials.navbar.dropdown-item-submenu')
 
 @elseif ($navbarItemHelper->isLink($item))
 
-    {{-- Dropdown link --}}
-    @include('adminlte::partials.navbar.dropdown-item-link')
+{{-- Dropdown link --}}
+@include('adminlte::partials.navbar.dropdown-item-link')
 
 @endif

@@ -31,7 +31,7 @@
 
                 <div class="card-body bg-white">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped table-hover dataTable">
                             <thead class="thead">
                                 <tr>
                                     <th>No</th>
@@ -73,4 +73,15 @@
         </div>
     </div>
 </div>
+@endsection
+@section('plugins.Datatables', true)
+@section('js')
+<script>
+    $('.dataTable').DataTable({
+        destroy:true,
+        language: {
+        url: '{{asset("vendor/datatable/es-MX.json")}}',
+    },
+    });
+</script>
 @endsection

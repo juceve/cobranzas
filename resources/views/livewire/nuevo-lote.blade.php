@@ -14,23 +14,63 @@
                     <div class="card-header text-primary">
                         <strong>DEUDAS</strong>
                         <div class="float-right">
-                            <a href="javascript:void(0);" class="text-primary" title="Seleccionar todos los registros"
-                                wire:click='selectAll'>
-                                <small>
+                            <div class="d-flex">
 
-                                    <div wire:loading wire:target='selectAll'>
-                                        Sel. Todo
-                                        <div class="spinner-border spinner-border-sm text-secondary" role="status">
-                                            <span class="sr-only">Loading...</span>
+                                <a href="javascript:void(0);" class="text-secondary"
+                                    title="Seleccionar todos los registros" wire:click='selectItems(50)'>
+                                    <small>
+
+                                        <div wire:loading wire:target='selectItems'>
+                                            Sel. 50 items
+                                            <div class="spinner-border spinner-border-sm text-secondary" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div wire:loading.remove wire:target='selectAll'>
-                                        Sel. Todo
-                                        <i class="fas fa-angle-double-right"></i>
-                                    </div>
+                                        <div wire:loading.remove wire:target='selectItems'>
+                                            Sel. 50 items
+                                            <i class="fas fa-angle-double-right"></i>
+                                        </div>
 
-                                </small>
-                            </a>
+                                    </small>
+                                </a>
+                                |
+                                <a href="javascript:void(0);" class="text-secondary"
+                                    title="Seleccionar todos los registros" wire:click='selectItems(100)'>
+                                    <small>
+
+                                        <div wire:loading wire:target='selectItems'>
+                                            Sel. 100 items
+                                            <div class="spinner-border spinner-border-sm text-secondary" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                        <div wire:loading.remove wire:target='selectItems'>
+                                            Sel. 100 items
+                                            <i class="fas fa-angle-double-right"></i>
+                                        </div>
+
+                                    </small>
+                                </a>
+                                |
+                                <a href="javascript:void(0);" class="text-primary"
+                                    title="Seleccionar todos los registros" wire:click='selectItems(0)'>
+                                    <small>
+
+                                        <div wire:loading wire:target='selectItems'>
+                                            Sel. Todo
+                                            <div class="spinner-border spinner-border-sm text-secondary" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                        <div wire:loading.remove wire:target='selectItems'>
+                                            Sel. Todo
+                                            <i class="fas fa-angle-double-right"></i>
+                                        </div>
+
+                                    </small>
+                                </a>
+                            </div>
+
                         </div>
                     </div>
                     <div class="card-body">
@@ -71,6 +111,7 @@
                                 style="font-size: 11px; vertical-align: middle">
                                 <thead>
                                     <tr class="table-primary">
+                                        <th>Nro.</th>
                                         <th>NUM DOC</th>
                                         <th>CLIENTE</th>
                                         <th>ZONA</th>
@@ -82,6 +123,7 @@
                                 <tbody>
                                     @forelse ($deudas as $deuda)
                                     <tr>
+                                        <td class="align-middle">{{++$i}}</td>
                                         <td class="align-middle">{{$deuda['numdoc']}}</td>
                                         <td class="align-middle">{{$deuda['cliente']}}</td>
                                         <td class="align-middle">{{$deuda->zona_id?$deuda->zona->nombre:"Sin asignar"}}
@@ -98,7 +140,7 @@
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="6" class="text-center align-middle"><strong>No existen
+                                        <td colspan="7" class="text-center align-middle"><strong>No existen
                                                 registros</strong></td>
                                     </tr>
                                     @endforelse
@@ -141,6 +183,7 @@
                                 <thead>
                                     <tr>
                                         <th class="bg-success"></th>
+                                        <th class="bg-success">#</th>
                                         <th class="bg-success">NUM DOC</th>
                                         <th class="bg-success">CLIENTE</th>
                                         <th class="bg-success">SALDO</th>
@@ -149,7 +192,7 @@
                                 </thead>
                                 <tbody>
                                     @php
-                                    $i =0;
+                                    $x =0;
                                     @endphp
                                     @forelse ($selectDeudas as $deuda)
                                     <tr>
@@ -159,6 +202,7 @@
                                                 <i class="fas fa-angle-left"></i>
                                             </button>
                                         </td>
+                                        <td class="align-middle">{{++$x}}</td>
                                         <td class="align-middle">{{$deuda['numdoc']}}</td>
                                         <td class="align-middle">{{$deuda['cliente']}}</td>
                                         <td class="align-middle">{{$deuda['saldo']}}</td>
@@ -169,7 +213,7 @@
                                     @endphp
                                     @empty
                                     <tr>
-                                        <td colspan="4" class="text-center align-middle"><strong>No existen
+                                        <td colspan="5" class="text-center align-middle"><strong>No existen
                                                 registros</strong></td>
                                     </tr>
                                     @endforelse

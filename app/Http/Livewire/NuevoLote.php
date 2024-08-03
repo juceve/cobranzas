@@ -74,7 +74,7 @@ class NuevoLote extends Component
             }
         }
 
-        return view('livewire.nuevo-lote', compact('deudas'))->extends('adminlte::page');
+        return view('livewire.nuevo-lote', compact('deudas'))->with('i', 0)->extends('adminlte::page');
     }
 
     public function selectDeuda(Deuda $deuda)
@@ -83,7 +83,7 @@ class NuevoLote extends Component
         $this->selectDeudas[] = $deuda->toArray();
     }
 
-    public function selectAll()
+    public function selectItems($cantidad = 0)
     {
         $deudas = [];
 
@@ -126,10 +126,16 @@ class NuevoLote extends Component
                 }
             }
         }
-
-        foreach ($deudas as $item) {
-            $this->selectDeudas[] = $item->toArray();
-            $this->selectIds[] = $item->id;
+        if ($cantidad > 0) {
+            foreach ($deudas->take($cantidad) as $item) {
+                $this->selectDeudas[] = $item->toArray();
+                $this->selectIds[] = $item->id;
+            }
+        } else {
+            foreach ($deudas as $item) {
+                $this->selectDeudas[] = $item->toArray();
+                $this->selectIds[] = $item->id;
+            }
         }
     }
 

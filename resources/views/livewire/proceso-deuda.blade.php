@@ -11,7 +11,10 @@
                 <h5>Detalles</h5>
             </span>
             <div class="card-tools">
-
+                <a href="{{ route('procesarlote',$lotedeuda->lote_id) }}" type="button" class="btn btn-tool"
+                    title="Volver">
+                    <i class="fas fa-arrow-alt-circle-left"></i> Volver
+                </a>
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Min/Max">
                     <i class="fas fa-minus"></i>
                 </button>
@@ -202,11 +205,28 @@
                     <label><small><strong>ACCIÓN BLACK BIRD:</strong></small></label>
                     <textarea rows="2" class="form-control form-control-sm" wire:model.lazy='accionpropia'></textarea>
                 </div>
+                <div class="col-12 col-md-3 mb-2">
+                    <label><small><strong>Agendar nuevo contacto:</strong></small></label>
+                    <div class="d-flex align-self-center">
+                        <div class="form-group">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1"
+                                    wire:model='enableproxcontacto'>
+                                <label class="custom-control-label" for="customSwitch1"></label>
+                            </div>
+
+                        </div>
+                        <input type="date" class="form-control form-control-sm @error('proxcontacto')
+                            is-invalid
+                        @enderror" @if (!$enableproxcontacto) disabled @endif wire:model='proxcontacto'>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="card card-outline card-warning collapsed-card">
+    <div class="card card-outline card-warning">
         <div class="card-header">
             <span class="card-title text-warning">
                 <strong>Compromiso de Pago</strong>
@@ -214,11 +234,42 @@
             <div class="card-tools">
 
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Min/Max">
-                    <i class="fas fa-plus"></i>
+                    <i class="fas fa-minus"></i>
                 </button>
             </div>
         </div>
-        <div class="card-body"></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-4 col-xl-3 mb-2">
+                    <label><small><strong>Registrar compromiso de Pago:</strong></small></label>
+                    <div class="d-flex align-self-center">
+                        <div class="form-group">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch2"
+                                    wire:model='enablecompromiso'>
+                                <label class="custom-control-label" for="customSwitch2"></label>
+                            </div>
+
+                        </div>
+                        <input type="datetime-local" class="form-control form-control-sm @error('fechahoracompromiso')
+                            is-invalid
+                        @enderror" @if (!$enablecompromiso) disabled @endif wire:model.lazy='fechahoracompromiso'>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 col-xl-3 mb-2">
+                    <label><small><strong>Monto comprometido:</strong></small></label>
+                    <input type="number" step="any" class="form-control form-control-sm" @if (!$enablecompromiso)
+                        disabled @endif wire:model.lazy='montocomprometido'>
+                </div>
+                <div class="col-12 mb-2">
+                    <label><small><strong>Anotaciones:</strong></small></label>
+                    <textarea class="form-control form-control-sm" rows="2" @if (!$enablecompromiso) disabled @endif
+                        wire:model.lazy='anotaciones'></textarea>
+                </div>
+            </div>
+
+
+        </div>
     </div>
     <hr>
     <div class="row justify-content-end">

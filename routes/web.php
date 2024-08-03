@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\CompromisopagoController;
 use App\Http\Controllers\DeudaController;
 use App\Http\Controllers\DeudoreController;
 use App\Http\Controllers\EmpresaController;
-use App\Http\Controllers\ExcelUploadController;
+use App\Http\Controllers\EstadocontactoController;
 use App\Http\Controllers\GestiontipoController;
 use App\Http\Controllers\LoteController;
+use App\Http\Controllers\RecordatorioController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UpdDbEmpresasController;
 use App\Http\Controllers\UserController;
@@ -16,8 +18,7 @@ use App\Http\Livewire\MisLotes;
 use App\Http\Livewire\NuevoLote;
 use App\Http\Livewire\ProcesarLote;
 use App\Http\Livewire\ProcesoDeuda;
-use App\Http\Livewire\UpddbEmpresas;
-use Illuminate\Routing\RouteGroup;
+use App\Models\Compromisopago;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -67,6 +68,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('lotes', LoteController::class)->only('index')->names('lotes');
     Route::resource('zonas', ZonaController::class)->names('zonas');
     Route::resource('gestiontipos', GestiontipoController::class)->names('gestiontipos');
+    Route::resource('estadocontactos', EstadocontactoController::class)->names('estadocontactos');
+    Route::resource('recordatorios', RecordatorioController::class)->names('recordatorios');
+    Route::resource('compromisos-pago', CompromisopagoController::class)->names('compromisopagos');
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::get('notifications/get', [App\Http\Controllers\NotificationsController::class, 'getNotificationsData'])->name('notifications.get');
+    Route::get('notifications/show/{lotedeuda_id}', [App\Http\Controllers\NotificationsController::class, 'show'])->name('notifications.show');
 });

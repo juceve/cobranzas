@@ -16,10 +16,10 @@ class EstadocontactoController extends Controller
      */
     public function index(Request $request): View
     {
-        $estadocontactos = Estadocontacto::paginate();
+        $estadocontactos = Estadocontacto::all();
 
         return view('estadocontacto.index', compact('estadocontactos'))
-            ->with('i', ($request->input('page', 1) - 1) * $estadocontactos->perPage());
+            ->with('i', 0);
     }
 
     /**
@@ -40,7 +40,7 @@ class EstadocontactoController extends Controller
         Estadocontacto::create($request->validated());
 
         return Redirect::route('estadocontactos.index')
-            ->with('success', 'Estadocontacto created successfully.');
+            ->with('success', 'Estado creado correctamente.');
     }
 
     /**
@@ -71,7 +71,7 @@ class EstadocontactoController extends Controller
         $estadocontacto->update($request->validated());
 
         return Redirect::route('estadocontactos.index')
-            ->with('success', 'Estadocontacto updated successfully');
+            ->with('success', 'Estado editado correctamente');
     }
 
     public function destroy($id): RedirectResponse
@@ -79,6 +79,6 @@ class EstadocontactoController extends Controller
         Estadocontacto::find($id)->delete();
 
         return Redirect::route('estadocontactos.index')
-            ->with('success', 'Estadocontacto deleted successfully');
+            ->with('success', 'Estado eliminado correctamente');
     }
 }
