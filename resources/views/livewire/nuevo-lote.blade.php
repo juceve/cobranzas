@@ -115,7 +115,7 @@
                                         <th>NUM DOC</th>
                                         <th>CLIENTE</th>
                                         <th>ZONA</th>
-                                        <th>SALDO</th>
+                                        {{-- <th>RANGO</th> --}}
                                         <th>ULT. PAGO</th>
                                         <th></th>
                                     </tr>
@@ -128,12 +128,14 @@
                                         <td class="align-middle">{{$deuda['cliente']}}</td>
                                         <td class="align-middle">{{$deuda->zona_id?$deuda->zona->nombre:"Sin asignar"}}
                                         </td>
-                                        <td class="text-right align-middle">{{number_format($deuda['saldo'],2,'.')}}
+                                        {{-- <td class="align-middle">{{$deuda->rango}} --}}
                                         </td>
                                         <td class="align-middle">{{$deuda['fechaultimopago']}}</td>
                                         <td class="text-right align-middle">
                                             <button class="btn btn-outline-primary" style="font-size: 8px;"
-                                                title="Seleccionar deuda" wire:click='selectDeuda({{$deuda->id}})'>
+                                                title="Seleccionar deuda" wire:click='selectDeuda({{$deuda->id}})'
+                                                wire:loading.attr="disabled" wire:target="selectDeuda" {{ $isProcessing
+                                                ? 'disabled' : '' }}>
                                                 <i class="fas fa-chevron-right"></i>
                                             </button>
                                         </td>
@@ -186,7 +188,7 @@
                                         <th class="bg-success">#</th>
                                         <th class="bg-success">NUM DOC</th>
                                         <th class="bg-success">CLIENTE</th>
-                                        <th class="bg-success">SALDO</th>
+                                        <th class="text-right bg-success">SALDO</th>
 
                                     </tr>
                                 </thead>
@@ -205,7 +207,8 @@
                                         <td class="align-middle">{{++$x}}</td>
                                         <td class="align-middle">{{$deuda['numdoc']}}</td>
                                         <td class="align-middle">{{$deuda['cliente']}}</td>
-                                        <td class="align-middle">{{$deuda['saldo']}}</td>
+                                        <td class="text-right align-middle">{{number_format($deuda['saldo'],2,'.')}}
+                                        </td>
 
                                     </tr>
                                     @php

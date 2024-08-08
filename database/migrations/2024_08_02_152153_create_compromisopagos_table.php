@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->dateTime('fechahoracompromiso');
             $table->float('montocomprometido', 10, 2)->nullable();
-            $table->foreignId('lotedeuda_id')->nullable()->constrained()->nullOnDelete();
             $table->longText('anotaciones')->nullable();
             $table->dateTime('fechahoracontacto')->nullable();
+            $table->foreignId('contacto_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->boolean('contactado')->default(false);
             $table->timestamps();

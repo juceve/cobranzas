@@ -21,4 +21,9 @@ class Deudore extends Model
     {
         return $this->belongsTo(\App\Models\Tipodoc::class, 'tipodoc_id', 'id');
     }
+
+    public function deudas()
+    {
+        return $this->hasMany(Deuda::class, 'deudore_id', 'id');
+    }
 }

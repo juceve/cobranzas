@@ -20,7 +20,7 @@ class ProcesoDeuda extends Component
     public $zonas, $gestiontipos, $estadocontactos, $historialContactos;
 
     public $gestiontipo_id = "", $nombrecontacto = "", $zona_id = "", $detalles = "", $proxcontacto = "", $estadocontacto_id = "", $resultado = "", $solicitudempresa = "", $accionpropia = "", $urlfoto = "";
-    public $telffijo = "", $telfcelular = "", $telfref1 = "";
+    public $telffijo = "", $telfcelular = "", $telfref1 = "", $telfref2 = "", $telfref3 = "";
     public $fechahoracompromiso = "", $montocomprometido = "0", $anotaciones = "";
 
     public $enableproxcontacto = false, $enablecompromiso = false;
@@ -37,6 +37,9 @@ class ProcesoDeuda extends Component
         $this->telffijo = $this->lotedeuda->deuda->deudore->telffijo;
         $this->telfcelular = $this->lotedeuda->deuda->deudore->telfcelular;
         $this->telfref1 = $this->lotedeuda->deuda->deudore->telfref1;
+        $this->telfref2 = $this->lotedeuda->deuda->deudore->telfref2;
+        $this->telfref3 = $this->lotedeuda->deuda->deudore->telfref3;
+
 
         $this->nombrecontacto = $this->lotedeuda->deuda->cliente;
 
@@ -157,6 +160,8 @@ class ProcesoDeuda extends Component
             $deudore->telffijo = $this->telffijo;
             $deudore->telfcelular = $this->telfcelular;
             $deudore->telfref1 = $this->telfref1;
+            $deudore->telfref2 = $this->telfref2;
+            $deudore->telfref3 = $this->telfref3;
             $deudore->save();
 
             $deuda = $this->lotedeuda->deuda;
@@ -188,7 +193,7 @@ class ProcesoDeuda extends Component
                     "fechahoracompromiso" => $this->fechahoracompromiso,
                     "montocomprometido" => $this->montocomprometido,
                     "anotaciones" => $this->anotaciones,
-                    "lotedeuda_id" => $this->lotedeuda->id,
+                    "contacto_id" => $this->currentContacto->id,
                 ]);
             }
             DB::commit();

@@ -339,27 +339,53 @@ return [
             'text' => 'Compromisos de Pago',
             'route' => 'compromisopagos.index',
             // 'can' => 'deudores.index',
+            // 'label' => {{$compromisosHoy()}},
+            // 'label_color' => 'success',
             'icon' => 'fas fa-fw fa-calendar-check'
         ],
         [
-            'text' => 'Deudores',
-            'route' => 'deudores.index',
-            'can' => 'deudores.index',
-            'icon' => 'fas fa-fw fa-address-book'
-        ],
-        [
-            'text' => 'Deudas',
-            'route' => 'manejodeudas',
-            'icon' => 'fas fa-fw fa-hand-holding-usd',
-            'can' => 'manejodeudas',
-        ],
-        [
-            'text' => 'Empresas',
-            'route' => 'empresas.index',
-            'can' => 'empresas.index',
-            'icon' => 'fas fa-fw fa-building'
-        ],
+            'text' => 'Reportes',
+            'icon' => 'fas fa-fw fa-file-alt',
+            'submenu' => [
+                [
+                    'text' => 'Compromisos de Pago',
+                    'route' => 'rpt.compromisos',
+                    // 'can' => 'deudores.index',
+                    'icon' => 'fas fa-fw fa-headset'
+                ],
 
+            ],
+        ],
+        [
+            'text' => 'Base de Datos',
+            'icon' => 'fas fa-fw fa-database',
+            'submenu' => [
+                [
+                    'text' => 'Pagos',
+                    'route' => 'pagos.index',
+                    // 'can' => 'deudores.index',
+                    'icon' => 'fas fa-fw fa-file-invoice-dollar'
+                ],
+                [
+                    'text' => 'Deudores',
+                    'route' => 'deudores.index',
+                    'can' => 'deudores.index',
+                    'icon' => 'fas fa-fw fa-address-book'
+                ],
+                [
+                    'text' => 'Deudas',
+                    'route' => 'manejodeudas',
+                    'icon' => 'fas fa-fw fa-hand-holding-usd',
+                    'can' => 'manejodeudas',
+                ],
+                [
+                    'text' => 'Empresas',
+                    'route' => 'empresas.index',
+                    'can' => 'empresas.index',
+                    'icon' => 'fas fa-fw fa-building'
+                ],
+            ],
+        ],
 
 
         // [
@@ -368,28 +394,29 @@ return [
         //     'icon' => 'far fa-fw fa-table',
         // ],
         ['header' => 'Ajustes del Sistema'],
+
         [
-            'text' => 'Zonas',
-            'route' => 'zonas.index',
-            'can' => 'zonas.index',
-            'icon' => 'fas fa-fw fa-map-marked-alt'
-        ],
-        [
-            'text' => 'Tipo Gestion',
-            'route' => 'gestiontipos.index',
-            'can' => 'gestiontipos.index',
-            'icon' => 'fas fa-fw fa-th-list'
-        ],
-        [
-            'text' => 'Estado de Contactos',
-            'route' => 'estadocontactos.index',
-            // 'can' => 'gestiontipos.index',
-            'icon' => 'fas fa-fw fa-th-list'
-        ],
-        [
-            'text' => 'Usuario y Roles',
-            'icon' => 'fas fa-fw fa-users-cog',
+            'text' => 'Configuraciones',
+            'icon' => 'fas fa-fw fa-cogs',
             'submenu' => [
+                [
+                    'text' => 'Zonas',
+                    'route' => 'zonas.index',
+                    'can' => 'zonas.index',
+                    'icon' => 'fas fa-fw fa-map-marked-alt'
+                ],
+                [
+                    'text' => 'Tipo Gestion',
+                    'route' => 'gestiontipos.index',
+                    'can' => 'gestiontipos.index',
+                    'icon' => 'fas fa-fw fa-th-list'
+                ],
+                [
+                    'text' => 'Estado de Contactos',
+                    'route' => 'estadocontactos.index',
+                    // 'can' => 'gestiontipos.index',
+                    'icon' => 'fas fa-fw fa-th-list'
+                ],
                 [
                     'text' => 'Usuarios',
                     'route' => 'users',

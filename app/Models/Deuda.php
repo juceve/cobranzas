@@ -18,7 +18,7 @@ class Deuda extends Model
 
     public function zona()
     {
-        return $this->hasOne(Zona::class, 'zona_id', 'id');
+        return $this->hasOne(Zona::class, 'id', 'zona_id');
     }
 
     public function movimientos()

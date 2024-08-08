@@ -31,7 +31,7 @@
 
                 <div class="card-body bg-white">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover dataTable">
+                        <table class="table table-striped table-hover dataTable" style="font-size: 12px;">
                             <thead class="thead">
                                 <tr>
                                     <th>No</th>
@@ -40,32 +40,45 @@
                                     <th>MONTO</th>
                                     <th>CLIENTE</th>
                                     <th>DIRECCIÓN</th>
-                                    <th></th>
+                                    <th>ESTADO</th>
+                                    <th style="max-width: 60px"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($compromisopagos as $compromisopago)
                                 <tr>
-                                    <td>{{ ++$i }}</td>
+                                    <td class="align-middle">{{ ++$i }}</td>
 
-                                    <td>{{ $compromisopago->fechahoracompromiso }}</td>
-                                    <td>{{ $compromisopago->montocomprometido }}</td>
-                                    <td>{{ $compromisopago->lotedeuda->deuda->cliente }}</td>
-                                    <td>{{ $compromisopago->lotedeuda->deuda->direccion }}</td>
-
-                                    <td>
+                                    <td class="align-middle">{{ $compromisopago->fechahoracompromiso }}</td>
+                                    <td class="align-middle">{{ $compromisopago->montocomprometido }}</td>
+                                    <td class="align-middle">{{ $compromisopago->contacto->lotedeuda->deuda->cliente }}
+                                    </td>
+                                    <td class="align-middle">{{ $compromisopago->contacto->lotedeuda->deuda->direccion
+                                        }}</td>
+                                    <td class="align-middle">
+                                        @if (!$compromisopago->contactado)
+                                        <span class="badge badge-pill badge-warning">Pendiente</span>
+                                        @else
+                                        <span class="badge badge-pill badge-success">Procesado</span>
+                                        @endif
+                                    </td>
+                                    <td class="text-right align-middle">
+                                        @if (!$compromisopago->contactado)
                                         <form action="{{ route('compromisopagos.destroy', $compromisopago->id) }}"
                                             class="delete" onsubmit="return false" method="POST">
 
-                                            <a class="btn btn-sm btn-success"
-                                                href="{{ route('compromisopagos.edit', $compromisopago->id) }}"><i
-                                                    class="fa fa-fw fa-edit"></i> Atender</a>
+                                            <a class="btn btn-sm btn-outline-warning"
+                                                href="{{ route('compromisopagos.edit', $compromisopago->id) }}"
+                                                title="Procesar"><i class="fa fa-fw fa-edit"></i></a>
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">
-                                                <i class="fa fa-fw fa-trash"></i> Eliminar
+                                            <button type="submit" class="btn btn-outline-danger btn-sm"
+                                                title="Eliminar">
+                                                <i class="fa fa-fw fa-trash"></i>
                                             </button>
                                         </form>
+                                        @endif
+
                                     </td>
                                 </tr>
                                 @endforeach
@@ -74,8 +87,19 @@
                     </div>
                 </div>
             </div>
-            {!! $compromisopagos->withQueryString()->links() !!}
+
         </div>
     </div>
 </div>
+@endsection
+@section('plugins.Datatables', true)
+@section('js')
+<script>
+    $('.dataTable').DataTable({
+        destroy:true,
+        language: {
+        url: '{{asset("vendor/datatable/es-MX.json")}}',
+    },
+    });
+</script>
 @endsection

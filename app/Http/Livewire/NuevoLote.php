@@ -24,6 +24,7 @@ class NuevoLote extends Component
     public $selectIds = [];
     public $usuarios, $selectUser;
     public $zonas, $zona_id = "";
+    public $isProcessing = false;
 
     public function mount($empresa_id)
     {
@@ -37,38 +38,40 @@ class NuevoLote extends Component
         if (!count($this->selectIds)) {
             if ($this->search == "") {
                 if ($this->zona_id == "") {
-                    $deudas = Vwdeudaslotes::paginate($this->filas);
+                    $deudas = Vwdeudaslotes::orderBy('cliente', 'ASC')->paginate($this->filas);
                 } else {
-                    $deudas = Vwdeudaslotes::where('zona_id', $this->zona_id)->paginate($this->filas);
+                    $deudas = Vwdeudaslotes::where('zona_id', $this->zona_id)->orderBy('cliente', 'ASC')->paginate($this->filas);
                 }
             } else {
                 if ($this->zona_id != "") {
                     $deudas = Vwdeudaslotes::where([['numdoc', 'LIKE', '%' . $this->search . '%'], ['zona_id', $this->zona_id]])
                         ->orWhere([['cliente', 'LIKE', '%' . $this->search . '%'], ['zona_id', $this->zona_id]])
+                        ->orderBy('cliente', 'ASC')
                         ->paginate($this->filas);
                 } else {
                     $deudas = Vwdeudaslotes::where('numdoc', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('cliente', 'LIKE', '%' . $this->search . '%')
+                        ->orderBy('cliente', 'ASC')
                         ->paginate($this->filas);
                 }
             }
         } else {
             if ($this->search == "") {
                 if ($this->zona_id == "") {
-                    $deudas = Vwdeudaslotes::whereNotIn('id', $this->selectIds)->paginate($this->filas);
+                    $deudas = Vwdeudaslotes::whereNotIn('id', $this->selectIds)->orderBy('cliente', 'ASC')->paginate($this->filas);
                 } else {
-                    $deudas = Vwdeudaslotes::where('zona_id', $this->zona_id)->whereNotIn('id', $this->selectIds)->paginate($this->filas);
+                    $deudas = Vwdeudaslotes::where('zona_id', $this->zona_id)->whereNotIn('id', $this->selectIds)->orderBy('cliente', 'ASC')->paginate($this->filas);
                 }
             } else {
                 if ($this->zona_id == "") {
                     $deudas = Vwdeudaslotes::where('numdoc', 'LIKE', '%' . $this->search . '%')
                         ->orWhere('cliente', 'LIKE', '%' . $this->search . '%')
-                        ->whereNotIn('id', $this->selectIds)
+                        ->whereNotIn('id', $this->selectIds)->orderBy('cliente', 'ASC')
                         ->paginate($this->filas);
                 } else {
                     $deudas = Vwdeudaslotes::where([['numdoc', 'LIKE', '%' . $this->search . '%'], ['zona_id', $this->zona_id]])
                         ->orWhere([['cliente', 'LIKE', '%' . $this->search . '%'], ['zona_id', $this->zona_id]])
-                        ->whereNotIn('id', $this->selectIds)
+                        ->whereNotIn('id', $this->selectIds)->orderBy('cliente', 'ASC')
                         ->paginate($this->filas);
                 }
             }
@@ -79,12 +82,17 @@ class NuevoLote extends Component
 
     public function selectDeuda(Deuda $deuda)
     {
+        $this->isProcessing = true;
         $this->selectIds[] = $deuda->id;
         $this->selectDeudas[] = $deuda->toArray();
+        $this->isProcessing = false;
     }
 
     public function selectItems($cantidad = 0)
     {
+        $this->isProcessing = true;
+
+
         $deudas = [];
 
         if (!count($this->selectIds)) {
@@ -137,6 +145,8 @@ class NuevoLote extends Component
                 $this->selectIds[] = $item->id;
             }
         }
+
+        $this->isProcessing = false;
     }
 
     public function quitarDeuda($i)

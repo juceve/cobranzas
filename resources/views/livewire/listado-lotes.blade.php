@@ -108,8 +108,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if ($resultados)
-                            @foreach ($resultados as $lote)
+                            @forelse ($resultados as $lote)
                             <tr>
                                 <td>{{$lote->codigo}}</td>
                                 <td>{{$lote->fecha}}</td>
@@ -166,14 +165,12 @@
                                     </form> --}}
                                 </td>
                             </tr>
-                            @endforeach
-                            @else
+                            @empty
                             <tr>
                                 <td colspan="6" class="text-center"><strong><i>No se encontraron
                                             resultados.</i></strong></td>
                             </tr>
-                            @endif
-
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

@@ -19,7 +19,7 @@
                         </span>
 
                         <div class="float-right">
-                            <a href="{{ route('manejodeudas') }}" class="btn btn-info btn-sm float-right"
+                            <a href="javascript:history.back()" class="btn btn-info btn-sm float-right"
                                 data-placement="left">
                                 <i class="fas fa-arrow-left"></i> Volver
                             </a>

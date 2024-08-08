@@ -23,6 +23,9 @@ class ListadoLotes extends Component
     {
         $users = User::role('Administrador')->get();
         $empresas = Empresa::all();
+        if ($empresas) {
+            $this->empresa_id = $empresas->first()->id;
+        }
         $resultados = [];
         if ($this->user_id == "" && $this->empresa_id != "") {
             if ($this->status == "") {

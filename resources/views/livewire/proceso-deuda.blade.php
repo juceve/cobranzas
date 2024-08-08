@@ -21,8 +21,8 @@
             </div>
         </div>
         <div class="card-body" style="background-color: #007bff0e">
-
-            <div class="row">
+            <small> <strong>Información de la Deuda:</strong></small>
+            <div class="row mt-2">
                 <div class="col-12 col-md-6 col-xl-4 mb-1">
                     <div class="input-group input-group-sm mb-1">
                         <div class="input-group-prepend">
@@ -31,20 +31,13 @@
                         <input type="text" class="form-control" readonly value="{{$deuda->numdoc}}">
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-xl-4 mb-1">
-                    <div class="input-group input-group-sm mb-1">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><strong>CLIENTE</strong></span>
-                        </div>
-                        <input type="text" class="form-control" readonly value="{{$deuda->cliente}}">
-                    </div>
-                </div>
+
                 <div class="col-12 col-md-6 col-xl-4 mb-1">
                     <div class="input-group input-group-sm mb-1">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><strong>SALDO</strong></span>
                         </div>
-                        <input type="text" class="form-control" readonly value="{{$deuda->saldo}}">
+                        <input type="text" class="form-control" readonly value="{{number_format($deuda->saldo,2,'.')}}">
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-xl-4 mb-1">
@@ -71,7 +64,8 @@
                         <input type="text" class="form-control" readonly value="{{$deuda->rango}}">
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-xl-4 mb-1">
+
+                <div class="col-12 col-md-6 col-xl-8 mb-11">
                     <div class="input-group input-group-sm mb-1">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><strong>DIRECCIÓN</strong></span>
@@ -79,27 +73,30 @@
                         <input type="text" class="form-control" readonly value="{{$deuda->direccion}}">
                     </div>
                 </div>
+                <div class="col-12 col-md-6 col-xl-4 mb-1">
+                    <div class="input-group input-group-sm mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><strong>Zona</strong></span>
+                        </div>
+                        <select class="form-control" wire:model.defer="zona_id">
+                            <option value="">Seleccione una Zona</option>
+                            @foreach ($zonas as $item)
+                            <option value="{{$item->id}}">{{$item->nombre}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-
-    <div class="card card-outline card-teal">
-        <div class="card-header">
-            <span class="card-title text-teal">
-                <h5>Contacto </h5>
-            </span>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" id="openModalBtn"><i class="fas fa-history"></i> Historial de
-                    Contactos</button>
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Min/Max">
-                    <i class="fas fa-minus"></i>
-                </button>
-            </div>
-        </div>
-        <div class="card-body" style="background-color: #20c9961a">
-
-            <div class="row">
-
+            <small> <strong>Información del Deudor:</strong></small><br>
+            <div class="row mt-2">
+                <div class="col-12 col-md-6 col-xl-4 mb-1">
+                    <div class="input-group input-group-sm mb-1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><strong>NOMBRE</strong></span>
+                        </div>
+                        <input type="text" class="form-control" readonly value="{{$deuda->cliente}}">
+                    </div>
+                </div>
                 <div class="col-12 col-md-6 col-xl-4 mb-1">
                     <div class="input-group input-group-sm mb-2">
                         <div class="input-group-prepend">
@@ -128,6 +125,44 @@
                 <div class="col-12 col-md-6 col-xl-4 mb-1">
                     <div class="input-group input-group-sm mb-2">
                         <div class="input-group-prepend">
+                            <span class="input-group-text"><strong>TELF. REF. 2</strong></span>
+                        </div>
+                        <input type="text" class="form-control" wire:model.lazy='telfref2'>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4 mb-1">
+                    <div class="input-group input-group-sm mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><strong>TELF. REF. 3</strong></span>
+                        </div>
+                        <input type="text" class="form-control" wire:model.lazy='telfref3'>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-outline card-teal">
+        <div class="card-header">
+            <span class="card-title text-teal">
+                <h5>Contacto </h5>
+            </span>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" id="openModalBtn"><i class="fas fa-history"></i> Historial de
+                    Contactos</button>
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Min/Max">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body" style="background-color: #20c9961a">
+
+            <div class="row">
+
+
+                <div class="col-12 col-md-6 col-xl-4 mb-1">
+                    <div class="input-group input-group-sm mb-2">
+                        <div class="input-group-prepend">
                             <span class="input-group-text"><strong>Estado Contacto</strong></span>
                         </div>
                         <select class="form-control  @error('estadocontacto_id') is-invalid @enderror"
@@ -153,20 +188,8 @@
                         </select>
                     </div>
                 </div>
+
                 <div class="col-12 col-md-6 col-xl-4 mb-1">
-                    <div class="input-group input-group-sm mb-2">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><strong>Zona</strong></span>
-                        </div>
-                        <select class="form-control" wire:model.defer="zona_id">
-                            <option value="">Seleccione una Zona</option>
-                            @foreach ($zonas as $item)
-                            <option value="{{$item->id}}">{{$item->nombre}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-8 mb-1">
                     <div class="input-group input-group-sm mb-2">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><strong>Nombre Contacto</strong></span>
@@ -175,7 +198,7 @@
                             wire:model.defer='nombrecontacto'>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-xl-4 mb-1">
+                <div class="col-12 mb-1">
 
                 </div>
                 {{-- @if ($lotedeuda->fechacontacto)
@@ -277,7 +300,7 @@
             <a href="{{route('procesarlote',$this->lotedeuda->lote_id)}}" class="btn btn-secondary btn-block"><i
                     class="fas fa-ban"></i> Cancelar</a>
         </div>
-        <div class="col-12 col-md-4 mb-2">
+        <div class="col-12 col-md-4 mb-2 d-none">
             <button class="btn btn-info btn-block" wire:click='guardar(0)'>Guardar Cambios <i
                     class="fas fa-save"></i></button>
         </div>

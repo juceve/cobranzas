@@ -20,6 +20,9 @@ class ListadoDeudores extends Component
     public function render()
     {
         $empresas = Empresa::all();
+        if ($empresas) {
+            $this->empresa_id = $empresas->first()->id;
+        }
         $resultados = [];
         if ($this->search == "" && $this->empresa_id != "") {
             $resultados = Deudore::where("empresa_id", $this->empresa_id)->orderBy($this->sortField, $this->sortDirection)->paginate($this->filas);

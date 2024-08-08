@@ -10,14 +10,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property $id
  * @property $fechahoracompromiso
  * @property $montocomprometido
- * @property $lotedeuda_id
  * @property $anotaciones
  * @property $fechahoracontacto
+ * @property $contacto_id
  * @property $user_id
+ * @property $contactado
  * @property $created_at
  * @property $updated_at
  *
- * @property Lotedeuda $lotedeuda
+ * @property Contacto $contacto
  * @property User $user
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
@@ -32,15 +33,15 @@ class Compromisopago extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['fechahoracompromiso', 'montocomprometido', 'lotedeuda_id', 'anotaciones', 'fechahoracontacto', 'user_id', 'contactado'];
+    protected $fillable = ['fechahoracompromiso', 'montocomprometido', 'anotaciones', 'fechahoracontacto', 'contacto_id', 'user_id', 'contactado'];
 
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function lotedeuda()
+    public function contacto()
     {
-        return $this->belongsTo(\App\Models\Lotedeuda::class, 'lotedeuda_id', 'id');
+        return $this->belongsTo(\App\Models\Contacto::class, 'contacto_id', 'id');
     }
 
     /**

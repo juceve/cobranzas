@@ -23,6 +23,7 @@ class CompromisopagoRequest extends FormRequest
     {
         return [
 			'fechahoracompromiso' => 'required',
+			'contactado' => 'required',
         ];
     }
 }

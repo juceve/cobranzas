@@ -55,7 +55,7 @@ class DeudoreController extends Controller
     {
         $deudore = Deudore::find($id);
 
-        return view('deudore.show', compact('deudore'));
+        return view('deudore.show', compact('deudore'))->with('i', 0);
     }
 
     /**

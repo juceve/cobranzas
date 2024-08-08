@@ -15,13 +15,16 @@ class ManejoDeudas extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $empresa_id = 1, $search = "", $filas = 10;
+    public $empresa_id, $search = "", $filas = 10;
     public $sortField = 'id';
     public $sortDirection = 'asc';
 
     public function render()
     {
         $empresas = Empresa::all();
+        if ($empresas) {
+            $this->empresa_id = $empresas->first()->id;
+        }
         $resultados = [];
         if ($this->search == "" && $this->empresa_id != "") {
             $resultados = Vwdeudas::where("empresa_id", $this->empresa_id)->orderBy($this->sortField, $this->sortDirection)->paginate($this->filas);

@@ -29,6 +29,9 @@ class MisLotes extends Component
     public function render()
     {
         $empresas = Empresa::all();
+        if ($empresas) {
+            $this->empresa_id = $empresas->first()->id;
+        }
         $resultados = [];
         if ($this->empresa_id != "") {
             if ($this->status == "") {

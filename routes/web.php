@@ -7,6 +7,8 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\EstadocontactoController;
 use App\Http\Controllers\GestiontipoController;
 use App\Http\Controllers\LoteController;
+use App\Http\Controllers\MetodopagoController;
+use App\Http\Controllers\PagoController;
 use App\Http\Controllers\RecordatorioController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UpdDbEmpresasController;
@@ -18,6 +20,7 @@ use App\Http\Livewire\MisLotes;
 use App\Http\Livewire\NuevoLote;
 use App\Http\Livewire\ProcesarLote;
 use App\Http\Livewire\ProcesoDeuda;
+use App\Http\Livewire\RptContactos;
 use App\Models\Compromisopago;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -61,6 +64,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mis-lotes/{empresa_id?}', MisLotes::class)->name('mislotes');
     Route::get('/procesar-lote/{lote_id}', ProcesarLote::class)->name('procesarlote');
     Route::get('/proceso-deuda/{lotedeuda_id}', ProcesoDeuda::class)->name('procesodeuda');
+    Route::get('/rpt-compromisos', RptContactos::class)->name('rpt.compromisos');
 
     Route::resource('empresas', EmpresaController::class)->names('empresas');
     Route::resource('deudores', DeudoreController::class)->except(['create', 'store'])->names('deudores');
@@ -71,6 +75,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('estadocontactos', EstadocontactoController::class)->names('estadocontactos');
     Route::resource('recordatorios', RecordatorioController::class)->names('recordatorios');
     Route::resource('compromisos-pago', CompromisopagoController::class)->names('compromisopagos');
+    Route::resource('metodopagos', MetodopagoController::class)->names('metodopagos');
+    Route::resource('pagos', PagoController::class)->names('pagos');
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

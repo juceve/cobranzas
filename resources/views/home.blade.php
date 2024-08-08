@@ -8,6 +8,8 @@
 
 @section('content')
 <p>Welcome to this beautiful admin panel.</p>
+
+{{ current_user()->name }}
 @endsection
 
 @section('js')
