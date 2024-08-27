@@ -28,6 +28,6 @@ class Deuda extends Model
 
     public function pagos()
     {
-        return $this->hasMany(Vwpagos::class, 'deuda_id', 'id');
+        return $this->hasMany(Pago::class, 'deuda_id', 'id');
     }
 }

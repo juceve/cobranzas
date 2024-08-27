@@ -38,7 +38,7 @@
                     </div>
                     <div class="col-7 col-md-3 mb-2 ">
                        <select class="form-control form-control-sm" wire:model='user_id'>
-                        <option value="">Todos Operadores</option>
+                        <option value="">Todos los Operadores</option>
                         @foreach ($usuarios as $user)
                             <option value="{{$user->id}}">{{$user->name}}</option>
                         @endforeach
@@ -126,7 +126,7 @@
                                 <td class="text-center">{{$item->pago_id?substr($item->pago->fechahorapago,0,10):'--'}}
                                 </td>
                                 <td class="text-right">{{$item->pago_id?numToFloat($item->pago->monto):'--'}}</td>
-                                <td class="text-center">{{$item->pago_id?'SI':'--'}}</td>
+                                <td class="text-center">{{$item->pago_id?'SI':'NO'}}</td>
 
                                 <td>{{$item->detalles}}</td>
                                 <td>

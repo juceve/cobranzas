@@ -16,6 +16,7 @@ return new class extends Migration
             $table->dateTime('fechahorapago');
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('compromisopago_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('deuda_id')->nullable()->constrained()->nullOnDelete();
             $table->float('monto', 10, 2);
             $table->float('saldoantespago', 10, 2)->nullable();
             $table->float('saldodespuespago', 10, 2)->nullable();

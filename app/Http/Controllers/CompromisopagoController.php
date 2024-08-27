@@ -90,80 +90,23 @@ class CompromisopagoController extends Controller
      */
     public function update(Request $request, $compromisopago_id)
     {
-        $compromisopago = Compromisopago::find($compromisopago_id);
-        if ($request->enablePago) {
-            $request->validate([
-                "anotaciones" => "required",
-                "monto" => "required",
-                "metodopago_id" => "required",
-            ]);
-        } else {
-            $request->validate([
-                "anotaciones" => "required",
-            ]);
-        }
+        // $compromisopago = Compromisopago::find($compromisopago_id);
+        // if ($request->enablePago) {
+        //     $request->validate([
+        //         "anotaciones" => "required",
+        //         "monto" => "required",
+        //         "metodopago_id" => "required",
+        //     ]);
+        // } else {
+        //     $request->validate([
+        //         "anotaciones" => "required",
+        //     ]);
+        // }
 
 
-        $deuda = $compromisopago->contacto->lotedeuda->deuda;
+        // $deuda = $compromisopago->contacto->lotedeuda->deuda;
 
-        DB::beginTransaction();
-        try {
 
-            $compromisopago->anotaciones = $request->anotaciones;
-            $compromisopago->user_id = Auth::user()->id;
-            $compromisopago->contactado = true;
-            $compromisopago->save();
-
-            if ($request->enablePago) {
-                $pago = Pago::create([
-                    'fechahorapago' => date('Y-m-d H:i:s'),
-                    'user_id' => Auth::user()->id,
-                    'compromisopago_id' => $compromisopago_id,
-                    'monto' => $request->monto,
-                    'saldoantespago' => $deuda->saldointerno,
-                    'saldodespuespago' => ($deuda->saldointerno - $request->monto),
-                    'metodopago_id' => $request->metodopago_id,
-                    'ncobrador' => $request->ncobrador,
-                    'resultado' => $request->resultado,
-                ]);
-
-                $deuda->saldointerno -= $pago->monto;
-                $deuda->save();
-                $archivos = $request->file('comprobantes');
-
-                // Iterar sobre cada archivo y guardarlo
-                $comprobantes = "";
-                $i = 1;
-                if ($archivos) {
-                    foreach ($archivos as $archivo) {
-                        // Definir el nombre del archivo
-                        $nombreArchivo = $pago->id . '_' . time() . $i . rand(1, 100) . '.' . $archivo->getClientOriginalExtension();
-
-                        // Guardar el archivo en el sistema de archivos (storage/app/public)
-                        $ruta = 'storage/uploads/comprobantes/' . $nombreArchivo;
-                        if ($archivo->move('storage/uploads/comprobantes', $nombreArchivo)) {
-                            $comprobantes .= $ruta . '|';
-                        }
-
-                        $i++;
-                    }
-                    if ($comprobantes != "") {
-                        $comprobantes = substr($comprobantes, 0, -1);
-                    }
-
-                    $pago->comprobantes = $comprobantes;
-                    $pago->save();
-                }
-            }
-
-            DB::commit();
-            return Redirect::route('compromisopagos.index')
-                ->with('success', 'Compromisopago updated successfully');
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            return Redirect::route('compromisopagos.index')
-                ->with('error', 'Ha ocurrido un error.');
-        }
     }
 
     public function destroy($id): RedirectResponse

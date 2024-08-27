@@ -14,16 +14,20 @@ class NotificationsController extends Controller
         $user = Auth::user();
         if ($user->roles[0] == 'Operador') {
             $recordatorios = Recordatorio::where('user_id', $user->id)
+                ->where('fecha', '<=', date('Y-m-d'))
                 ->where('atendido', 0)
                 ->get();
             $compromisos = Compromisopago::where('user_id', $user->id)
+                ->whereDate('fechahoracompromiso', '<=', date('Y-m-d'))
                 ->where('contactado', 0)
                 ->get();
         } else {
             $recordatorios = Recordatorio::where('user_id', $user->id)
+                ->where('fecha', '<=', date('Y-m-d'))
                 ->where('atendido', 0)
                 ->get();
-            $compromisos = Compromisopago::where('contactado', 0)->get();
+            $compromisos = Compromisopago::where('contactado', 0)
+                ->whereDate('fechahoracompromiso', '<=', date('Y-m-d'))->get();
         }
 
         $cantNoti = $recordatorios->count() + $compromisos->count();

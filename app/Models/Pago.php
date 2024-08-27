@@ -36,7 +36,7 @@ class Pago extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['fechahorapago', 'user_id', 'compromisopago_id', 'ncobrador', 'monto', 'saldoantespago', 'saldodespuespago', 'metodopago_id', 'comprobantes', 'resultado'];
+    protected $fillable = ['fechahorapago', 'user_id', 'compromisopago_id', 'deuda_id', 'ncobrador', 'monto', 'saldoantespago', 'saldodespuespago', 'metodopago_id', 'comprobantes', 'resultado'];
 
 
     /**
