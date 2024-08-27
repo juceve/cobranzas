@@ -98,5 +98,6 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'procesardeuda',  'grupo' => 'DEUDAS', 'descripcion' => 'Procesar deuda'])->assignRole([$role]);
         Permission::create(['name' => 'rpt.compromisos',  'grupo' => 'REPORTES', 'descripcion' => 'Compromisos de Pago'])->assignRole([$role]);
         Permission::create(['name' => 'rpt.contactos',  'grupo' => 'REPORTES', 'descripcion' => 'Contactos'])->assignRole([$role]);
+        Permission::create(['name' => 'rpt.anticuacion',  'grupo' => 'REPORTES', 'descripcion' => 'Anticuación'])->assignRole([$role]);
     }
 }

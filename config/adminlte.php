@@ -355,6 +355,12 @@ return [
                     'can' => 'rpt.contactos',
                     'icon' => 'fas fa-fw fa-headset'
                 ],
+                [
+                    'text' => 'Anticuación',
+                    'route' => 'rpt.anticuacion',
+                    'can' => 'rpt.anticuacion',
+                    'icon' => 'fas fa-fw fa-hourglass-half'
+                ],
 
             ],
         ],

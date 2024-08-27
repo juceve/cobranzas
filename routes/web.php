@@ -23,6 +23,7 @@ use App\Http\Livewire\NuevoLote;
 use App\Http\Livewire\NuevoUsuario;
 use App\Http\Livewire\ProcesarLote;
 use App\Http\Livewire\ProcesoDeuda;
+use App\Http\Livewire\RptAnticuacion;
 use App\Http\Livewire\RptCompromisos;
 use App\Http\Livewire\RptContactos;
 use Illuminate\Support\Facades\Auth;
@@ -67,8 +68,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mis-lotes/{empresa_id?}', MisLotes::class)->name('mislotes');
     Route::get('/procesar-lote/{lote_id}', ProcesarLote::class)->name('procesarlote');
     Route::get('/proceso-deuda/{lotedeuda_id}', ProcesoDeuda::class)->name('procesodeuda');
-    Route::get('/rpt-compromisos', RptCompromisos::class)->name('rpt.compromisos');
-    Route::get('/rpt-contactos', RptContactos::class)->name('rpt.contactos');
+    Route::get('/rpt-compromisos', RptCompromisos::class)->can('rpt.compromisos')->name('rpt.compromisos');
+    Route::get('/rpt-contactos', RptContactos::class)->can('rpt.contactos')->name('rpt.contactos');
+    Route::get('/rpt-anticuacion', RptAnticuacion::class)->can('rpt.anticuacion')->name('rpt.anticuacion');
     Route::get('/nuevo-usuario', NuevoUsuario::class)->name('nuevousuario');
 
     Route::resource('empresas', EmpresaController::class)->names('empresas');

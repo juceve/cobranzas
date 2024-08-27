@@ -11,7 +11,7 @@ class CompromisosExport implements FromView, ShouldAutoSize
 {
     public function view(): View
     {
-        $resultados = Session::get('contactos-resultados');
+        $resultados = Session::get('compromisos-resultados');
         return view('excels.compromisos', compact('resultados'))->with('i', 0);
     }
 }

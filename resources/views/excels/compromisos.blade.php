@@ -15,6 +15,7 @@
         <tr>
             <th>Nro.</th>
             <th>COBRADOR BLACK BIRD</th>
+            <th>JEFE DE VENTAS</th>
             <th>CODIGO CLIENTE</th>
             <th>CLIENTE</th>
             <th class="text-center">FECHA</th>
@@ -33,6 +34,7 @@
         <tr>
             <td>{{++$i}}</td>
             <td>{{$item->pago?$item->pago->user->name:'--'}}</td>
+            <td>{{$item->lotedeuda->deuda->entnombrejefevendedor}}</td>
             <td>{{$item->lotedeuda->deuda->deudore->codigocliente}}</td>
             <td>{{$item->lotedeuda->deuda->cliente}}</td>
             <td class="text-center">{{$item->fechacontacto}}</td>

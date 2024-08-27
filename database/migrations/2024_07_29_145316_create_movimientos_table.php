@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('deuda_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
-            $table->date('fecha');
+            $table->date('fecha')->nullable();
             $table->float('saldoanterior');
             $table->float('saldonuevo');
-            $table->date('fecultpagoanterior');
-            $table->date('fecultpagonuevo');
+            $table->date('fecultpagoanterior')->nullable();
+            $table->date('fecultpagonuevo')->nullable();
             $table->string('rangoanterior', 50);
             $table->string('rangonuevo', 50);
             $table->string('observaciones')->nullable();
