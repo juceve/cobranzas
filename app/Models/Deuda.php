@@ -9,7 +9,7 @@ class Deuda extends Model
 
     protected $perPage = 20;
 
-    protected $fillable = ['fecha', 'numdoc', 'importe', 'saldo', 'saldointerno', 'vence', 'antiguedad', 'anticuacion', 'rango', 'cliente', 'clilugar', 'entnombrejefevendedor', 'entnombresupervisor', 'entnombrevendedor', 'plazo', 'fechaultimopago', 'ciunombre', 'deudore_id', 'limitecredito', 'rutid', 'zona_id', 'coordenadax', 'coordenaday', 'telefono', 'estado', 'direccion', 'direccioninterna', 'ctrlupdate'];
+    protected $fillable = ['fecha', 'numdoc', 'importe', 'saldo', 'saldointerno', 'vence', 'antiguedad', 'anticuacion', 'rango', 'cliente', 'clilugar', 'entnombrejefevendedor', 'entnombresupervisor', 'entnombrevendedor', 'plazo', 'fechaultimopago', 'ciunombre', 'deudore_id', 'limitecredito', 'rutid', 'zona_id', 'coordenadax', 'coordenaday', 'telefono', 'estado', 'direccion', 'direccioninterna', 'ctrlupdate', 'status'];
 
     public function deudore()
     {

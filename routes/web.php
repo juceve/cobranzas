@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CompromisopagoController;
+use App\Http\Controllers\CtrlDeudasController;
 use App\Http\Controllers\DeudaController;
 use App\Http\Controllers\DeudoreController;
 use App\Http\Controllers\EmpresaController;
@@ -91,4 +92,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('notifications/get', [App\Http\Controllers\NotificationsController::class, 'getNotificationsData'])->name('notifications.get');
     Route::get('notifications/show/{lotedeuda_id}', [App\Http\Controllers\NotificationsController::class, 'show'])->name('notifications.show');
+
+    // GRAFICOS
+    Route::get('registros-por-semana',[CtrlDeudasController::class,'data'])->name('ctrldeudas');
 });

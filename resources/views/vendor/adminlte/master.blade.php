@@ -18,7 +18,7 @@
         @yield('title', config('adminlte.title', 'AdminLTE 3'))
         @yield('title_postfix', config('adminlte.title_postfix', ''))
     </title>
-
+    <script src="{{ asset('vendor/jquery/jquery-3.6.0.min.js') }}"></script>
     {{-- Custom stylesheets (pre AdminLTE) --}}
     @yield('adminlte_css_pre')
 
@@ -83,7 +83,7 @@
 
     {{-- Base Scripts --}}
     @if(!config('adminlte.enabled_laravel_mix'))
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
@@ -196,14 +196,14 @@
             order: [
                 [0, 'desc']
             ],
-            language: {                    
+            language: {
                     url: '{{asset("plugins/es-ES.json")}}',
                 },
         })
     })
 
     Livewire.on('success', message => {
-        // Swal.fire('Excelente!',message,'success');  
+        // Swal.fire('Excelente!',message,'success');
         Swal.fire({
             icon: 'success',
             title: 'Excelente',

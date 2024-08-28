@@ -41,6 +41,7 @@ return new class extends Migration
             $table->string("direccion")->nullable();
             $table->string("direccioninterna")->nullable();
             $table->boolean("ctrlupdate")->default(true);
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
