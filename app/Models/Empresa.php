@@ -16,4 +16,9 @@ class Empresa extends Model
      * @var array<int, string>
      */
     protected $fillable = ['nombre', 'direccion', 'nit', 'email', 'telefono', 'personacontacto', 'celularcontacto', 'status'];
+
+    public function citeinformes()
+    {
+        return $this->hasMany(Citeinforme::class, 'empresa_id', 'id');
+    }
 }

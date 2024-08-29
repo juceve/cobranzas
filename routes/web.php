@@ -17,9 +17,11 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UpdDbEmpresasController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZonaController;
+use App\Http\Livewire\CiteInformes;
 use App\Http\Livewire\ListadoDeudores;
 use App\Http\Livewire\ManejoDeudas;
 use App\Http\Livewire\MisLotes;
+use App\Http\Livewire\NuevoCiteInforme;
 use App\Http\Livewire\NuevoLote;
 use App\Http\Livewire\NuevoUsuario;
 use App\Http\Livewire\ProcesarLote;
@@ -73,6 +75,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/rpt-contactos', RptContactos::class)->can('rpt.contactos')->name('rpt.contactos');
     Route::get('/rpt-anticuacion', RptAnticuacion::class)->can('rpt.anticuacion')->name('rpt.anticuacion');
     Route::get('/nuevo-usuario', NuevoUsuario::class)->name('nuevousuario');
+    Route::get('/cite-informes/{empresa_id?}',CiteInformes::class)->name('citeinformes');
+    Route::get('/nuevo-informe',NuevoCiteInforme::class)->name('nuevoinforme');
 
     Route::resource('empresas', EmpresaController::class)->names('empresas');
     Route::resource('deudores', DeudoreController::class)->except(['create', 'store'])->names('deudores');
