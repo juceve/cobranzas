@@ -6,79 +6,71 @@ use App\Models\Citeinforme;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\CiteinformeRequest;
+use App\Models\Vwcontactos;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class CiteinformeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request): View
+    public function pdf($citeinforme_id)
     {
-        $citeinformes = Citeinforme::paginate();
+        $citeinforme = Citeinforme::find($citeinforme_id);
 
-        return view('citeinforme.index', compact('citeinformes'))
-            ->with('i', ($request->input('page', 1) - 1) * $citeinformes->perPage());
+        // $urlchart = route('chartciteinforme',$citeinforme_id);
+        // return view('pdf.cite-informe', compact('citeinforme'));
+
+
+        $pdf = Pdf::loadView('pdf.cite-informe', compact('citeinforme'))
+            ->setPaper('letter', 'portrait');
+
+        return $pdf->stream();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(): View
+    public function showChart($citeinforme_id)
     {
-        $citeinforme = new Citeinforme();
-
-        return view('citeinforme.create', compact('citeinforme'));
+        $citeinforme = Citeinforme::find($citeinforme_id);
+        Session::put('citeinforme-resultados', $citeinforme);
+        return view('pdf.chartciteinforme');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(CiteinformeRequest $request): RedirectResponse
+    public function generatePDF(Request $request)
     {
-        Citeinforme::create($request->validated());
+        $chartImage = $request->input('chartImage');
+        $citeinforme = Session::get('citeinforme-resultados');
+        // Genera el PDF con la vista y la imagen del gráfico
+        $contactos =  DB::select("SELECT ec.nombre estado, COUNT(*) cantidad FROM vwcontactos c INNER JOIN estadocontactos ec ON ec.id = c.estadocontacto_id WHERE c.fechacontacto >= '" . $citeinforme->fechainicial . "' AND c.fechacontacto <= '" . $citeinforme->fechafinal . "' GROUP BY estado");
+        $pdf = PDF::loadView('pdf.grf-cite-informe', compact('chartImage', 'citeinforme', 'contactos'))->setPaper('letter', 'portrait');;
 
-        return Redirect::route('citeinformes.index')
-            ->with('success', 'Citeinforme created successfully.');
+        return $pdf->stream('GRAFICO ID-' . $citeinforme->id . '.pdf');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id): View
+    public function dataContactos()
     {
-        $citeinforme = Citeinforme::find($id);
+        $citeinforme = Session::get('citeinforme-resultados');
 
-        return view('citeinforme.show', compact('citeinforme'));
-    }
+        $contactos =  DB::select("SELECT ec.nombre estado, COUNT(*) cantidad FROM vwcontactos c INNER JOIN estadocontactos ec ON ec.id = c.estadocontacto_id WHERE c.fechacontacto >= '" . $citeinforme->fechainicial . "' AND c.fechacontacto <= '" . $citeinforme->fechafinal . "' GROUP BY estado");
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id): View
-    {
-        $citeinforme = Citeinforme::find($id);
+        $estados = [];
+        $porcentajes = [];
+        $cantidades = [];
+        $totalcontactos = 0;
+        foreach ($contactos as $item) {
+            $totalcontactos += $item->cantidad;
+        }
 
-        return view('citeinforme.edit', compact('citeinforme'));
-    }
+        foreach ($contactos as $item) {
+            $estados[] = $item->estado . ' - ' . numToFloat(($item->cantidad * 100) / $totalcontactos) . '%';
+            $porcentajes[] = numToFloat(($item->cantidad * 100) / $totalcontactos);
+            $cantidades[] = $item->cantidad;
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(CiteinformeRequest $request, Citeinforme $citeinforme): RedirectResponse
-    {
-        $citeinforme->update($request->validated());
-
-        return Redirect::route('citeinformes.index')
-            ->with('success', 'Citeinforme updated successfully');
-    }
-
-    public function destroy($id): RedirectResponse
-    {
-        Citeinforme::find($id)->delete();
-
-        return Redirect::route('citeinformes.index')
-            ->with('success', 'Citeinforme deleted successfully');
+        return response()->json([
+            'estados' => $estados,
+            'cantidades' => $cantidades,
+            'porcentajes' => $porcentajes
+        ]);
     }
 }

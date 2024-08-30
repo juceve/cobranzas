@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CiteinformeController;
 use App\Http\Controllers\CompromisopagoController;
 use App\Http\Controllers\CtrlDeudasController;
 use App\Http\Controllers\DeudaController;
@@ -75,8 +76,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/rpt-contactos', RptContactos::class)->can('rpt.contactos')->name('rpt.contactos');
     Route::get('/rpt-anticuacion', RptAnticuacion::class)->can('rpt.anticuacion')->name('rpt.anticuacion');
     Route::get('/nuevo-usuario', NuevoUsuario::class)->name('nuevousuario');
-    Route::get('/cite-informes/{empresa_id?}',CiteInformes::class)->name('citeinformes');
-    Route::get('/nuevo-informe',NuevoCiteInforme::class)->name('nuevoinforme');
+    Route::get('/cite-informes/{empresa_id?}', CiteInformes::class)->can('citeinformes')->name('citeinformes');
+    Route::get('/nuevo-informe', NuevoCiteInforme::class)->can('citeinformes')->name('nuevoinforme');
 
     Route::resource('empresas', EmpresaController::class)->names('empresas');
     Route::resource('deudores', DeudoreController::class)->except(['create', 'store'])->names('deudores');
@@ -98,5 +99,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('notifications/show/{lotedeuda_id}', [App\Http\Controllers\NotificationsController::class, 'show'])->name('notifications.show');
 
     // GRAFICOS
-    Route::get('registros-por-semana',[CtrlDeudasController::class,'data'])->name('ctrldeudas');
+    Route::get('registros-por-semana', [CtrlDeudasController::class, 'data'])->name('ctrldeudas');
+
+    // PDF
+    Route::get('pdf-informe/{citeinforme_id}', [CiteinformeController::class, 'pdf'])->name('pdf.informe');
+    Route::get('/chart/{citeinforme_id?}', [CiteinformeController::class, 'showChart'])->name('chartciteinforme');
+    Route::post('/generate-pdf', [CiteinformeController::class, 'generatePDF'])->name('generate.pdf');
+
+    Route::get('datacontactos', [CiteinformeController::class, 'dataContactos'])->name('datacontactos');
 });

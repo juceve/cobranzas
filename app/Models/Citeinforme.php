@@ -52,7 +52,7 @@ class Citeinforme extends Model
      */
     public function puntoinformes()
     {
-        return $this->hasMany(\App\Models\Puntoinforme::class, 'id', 'citeinforme_id');
+        return $this->hasMany(\App\Models\Puntoinforme::class, 'citeinforme_id', 'id');
     }
 
     public function empresa()

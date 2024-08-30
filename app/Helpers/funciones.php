@@ -45,3 +45,32 @@ ORDER BY co.created_at DESC Limit 1");
     }
     return $fecha;
 }
+
+function fechaLiteral($fecha)
+{
+    // Array con los nombres de los meses en español
+    $meses = [
+        1 => 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ];
+
+    // Convertir la fecha a un timestamp
+    $timestamp = strtotime($fecha);
+
+    // Obtener el día, mes y año
+    $dia = date('d', $timestamp);
+    $mes = date('n', $timestamp); // Número del mes sin ceros delante
+    $año = date('Y', $timestamp);
+
+    // Construir la fecha literal en español
+    return $dia . ' de ' . $meses[$mes] . ' de ' . $año;
+}
+
+function convertirFecha($fecha)
+{
+    // Crear un objeto DateTime a partir de la fecha dada
+    $date = DateTime::createFromFormat('Y-m-d', $fecha);
+
+    // Formatear la fecha al nuevo formato d/m/Y
+    return $date->format('d/m/Y');
+}

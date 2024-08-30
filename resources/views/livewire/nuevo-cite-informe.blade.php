@@ -170,4 +170,11 @@
             });
         }
     </script>
+    <script>
+        document.addEventListener('livewire:load', function () {
+            Livewire.on('abrirPestana', url => {
+                window.open(url, '_blank');
+            });
+        });
+    </script>
 @endsection

@@ -365,6 +365,20 @@ return [
             ],
         ],
         [
+            'text' => 'Documentos',
+            'icon' => 'fas fa-fw fa-folder',
+            'submenu' => [
+                [
+                    'text' => 'Informe de Avance',
+                    'route' => 'citeinformes',
+                    'can' => 'citeinformes',
+                    'icon' => 'fas fa-fw fa-chart-line'
+                ],
+
+
+            ],
+        ],
+        [
             'text' => 'Base de Datos',
             'icon' => 'fas fa-fw fa-database',
             'submenu' => [

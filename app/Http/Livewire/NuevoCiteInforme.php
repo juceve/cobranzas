@@ -84,7 +84,10 @@ class NuevoCiteInforme extends Component
             }
 
             DB::commit();
-            return redirect()->route('citeinformes')->with('successprint', $citeinforme->id);
+
+            $this->emit('abrirPestana', route('pdf.informe',$citeinforme->id));
+
+            return redirect()->route('citeinformes')->with('success', 'Informe generado correctamente.');
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->emit('error', 'Ha ocurrido un error.');
