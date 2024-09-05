@@ -16,7 +16,7 @@ class Realizapago extends Component
 {
     use WithFileUploads;
     public $compromisopago, $deuda, $contacto,  $metodos, $pago, $enablePago = false;
-    public $montocomprometido = 0, $metodopago_id = "", $observaciones = "", $comprobantes = [], $anotaciones,$numdoc;
+    public $montocomprometido = 0, $metodopago_id = "", $observaciones = "", $comprobantes = [], $anotaciones, $numdoc;
 
     public function mount($id)
     {
@@ -50,77 +50,76 @@ class Realizapago extends Component
         }
     }
 
-    public function cambiaDeuda($id) {
+    public function cambiaDeuda($id)
+    {
         $this->deuda = Deuda::find($id);
         $this->numdoc = $this->deuda->numdoc;
     }
 
-    protected $listeners=['registrar'];
+    protected $listeners = ['registrar'];
 
     public function registrar()
     {
-        // dd($this->comprobantes);
+
         $this->validate();
 
-        DB::beginTransaction();
         try {
+            DB::transaction(function () {
+                $this->compromisopago->anotaciones = $this->anotaciones;
+                $this->compromisopago->user_id = Auth::user()->id;
+                $this->compromisopago->fechahoracontacto = date('Y-m-d H:i:s');
+                $this->compromisopago->contactado = true;
+                $this->compromisopago->save();
 
-            $this->compromisopago->anotaciones = $this->anotaciones;
-            $this->compromisopago->user_id = Auth::user()->id;
-            $this->compromisopago->fechahoracontacto = date('Y-m-d H:i:s');
-            $this->compromisopago->contactado = true;
-            $this->compromisopago->save();
+                if ($this->enablePago) {
+                    $pago = Pago::create([
+                        'fechahorapago' => date('Y-m-d H:i:s'),
+                        'user_id' => Auth::user()->id,
+                        'compromisopago_id' => $this->compromisopago->id,
+                        'deuda_id' => $this->deuda->id,
+                        'monto' => $this->montocomprometido,
+                        'saldoantespago' => $this->deuda->saldointerno,
+                        'saldodespuespago' => ($this->deuda->saldointerno - $this->montocomprometido),
+                        'metodopago_id' => $this->metodopago_id,
+                        'ncobrador' => $this->observaciones,
 
-            if ($this->enablePago) {
-                $pago = Pago::create([
-                    'fechahorapago' => date('Y-m-d H:i:s'),
-                    'user_id' => Auth::user()->id,
-                    'compromisopago_id' => $this->compromisopago->id,
-                    'deuda_id' => $this->deuda->id,
-                    'monto' => $this->montocomprometido,
-                    'saldoantespago' => $this->deuda->saldointerno,
-                    'saldodespuespago' => ($this->deuda->saldointerno - $this->montocomprometido),
-                    'metodopago_id' => $this->metodopago_id,
-                    'ncobrador' => $this->observaciones,
+                    ]);
 
-                ]);
+                    $this->deuda->saldointerno -= $pago->monto;
+                    $this->deuda->save();
+                    // $archivos = $this->comprobantes;
 
-                $this->deuda->saldointerno -= $pago->monto;
-                $this->deuda->save();
-                // $archivos = $this->comprobantes;
-
-                // Iterar sobre cada archivo y guardarlo
-                $comprobantes = "";
-                $i = 1;
-                if (count($this->comprobantes)) {
-                    foreach ($this->comprobantes as $file) {
-                        // $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                        $extension = $file->getClientOriginalExtension();
-                        // $timestamp = now()->timestamp;
-                        $filename = $pago->id . '_' . time() . $i . rand(1, 100) . '.' . $extension;
-                        $ruta = 'uploads/comprobantes/' . $filename;
+                    // Iterar sobre cada archivo y guardarlo
+                    $comprobantes = "";
+                    $i = 1;
+                    if (count($this->comprobantes)) {
+                        foreach ($this->comprobantes as $file) {
+                            // $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                            $extension = $file->getClientOriginalExtension();
+                            // $timestamp = now()->timestamp;
+                            $filename = $pago->id . '_' . time() . $i . rand(1, 100) . '.' . $extension;
+                            $ruta = 'uploads/comprobantes/' . $filename;
 
 
-                        // Guardar el archivo en la ruta deseada con el nombre específico
-                        $file->storeAs('uploads/comprobantes/', $filename);
-                        $i++;
-                        $comprobantes .= $ruta . '|';
+                            // Guardar el archivo en la ruta deseada con el nombre específico
+                            $file->storeAs('uploads/comprobantes/', $filename);
+                            $i++;
+                            $comprobantes .= $ruta . '|';
+                        }
+
+                        if ($comprobantes != "") {
+                            $comprobantes = substr($comprobantes, 0, -1);
+                        }
+
+                        $pago->comprobantes = $comprobantes;
+                        $pago->save();
                     }
-
-                    if ($comprobantes != "") {
-                        $comprobantes = substr($comprobantes, 0, -1);
-                    }
-
-                    $pago->comprobantes = $comprobantes;
-                    $pago->save();
                 }
-            }
-
-            DB::commit();
+            });
             return Redirect::route('compromisopagos.index')
                 ->with('success', 'Operaciones realizadas correctamente');
         } catch (\Throwable $th) {
-            DB::rollBack();
+
             return Redirect::route('compromisopagos.index')
                 ->with('error', 'Ha ocurrido un error.');
         }

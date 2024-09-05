@@ -22,7 +22,7 @@
                     <span class="input-group-text"><strong>Anotaciones</strong></span>
                 </div>
                 <textarea name="anotaciones" class="form-control form-control-sm @error('anotaciones') is-invalid @enderror"
-                    id="anotaciones" rows="3" placeholder="Anotaciones" style="font-size: 13.4px;" wire:model='anotaciones'></textarea>
+                    id="anotaciones" rows="3" placeholder="Anotaciones" style="font-size: 13.4px;" wire:model.lazy='anotaciones'></textarea>
             </div>
         </div>
     </div>
@@ -62,7 +62,7 @@
                     <div class="form-group">
                         <label>Monto a Pagar:</label>
                         <input type="number" step="any" min="0"
-                            class="form-control @error('monto') is-invalid @enderror" wire:model='montocomprometido'
+                            class="form-control @error('monto') is-invalid @enderror" wire:model.lazy='montocomprometido'
                             name="monto">
                     </div>
                 </div>
@@ -106,8 +106,15 @@
     </div>
     <hr>
     <div class="col-md-12" id="divRegistrar">
-        <button type="submit" class="btn btn-info col-12 col-md-6 col-xl-4" onclick='registrar()'>REGISTRAR <i
+        <div wire:loading.remove>
+            <button type="submit" class="btn btn-info col-12 col-md-6 col-xl-4" onclick='registrar()'>REGISTRAR <i
                 class="fas fa-save"></i></button>
+        </div>
+        <div wire:loading>
+            Procesando...<div class="spinner-border spinner-border-sm" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+        </div>
     </div>
 
 
